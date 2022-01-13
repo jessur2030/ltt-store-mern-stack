@@ -1,0 +1,92 @@
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+.container {
+  max-width: 100rem;
+  margin-inline: auto;
+  padding-inline: 2rem;
+}
+
+.stacked {
+  display: grid;
+}
+
+.stacked > * {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.product-grid {
+  display: grid;
+  gap: 0.125rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+
+.card {
+  aspect-ratio: 1 / 1.5;
+  border: 3px solid hotpink;
+}
+
+.card__content {
+  background: white;
+  align-self: end;
+  margin: 0.5rem 0.5rem 2rem;
+  padding: 0.5rem;
+  box-shadow: 0 0.25rem 1rem rgb(0 0 0 / 0.1);
+}
+
+.card__title {
+  font-size: 1.25rem;
+  line-height: 1.1;
+  color: #242424;
+}
+
+.card__price {
+  font-size: 1.75rem;
+}
+
+.card__img {
+  width: 100%;
+  aspect-ratio: 1 / 1.25;
+  object-fit: cover;
+}
+
+@media (min-width: 60em) {
+  .card__img {
+    aspect-ratio: 1 / 1;
+  }
+
+  .card.featured {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+
+  .card.featured .card__img {
+    aspect-ratio: 1 / 1.25;
+  }
+
+  .card.featured .card__title {
+    font-size: 1.75rem;
+  }
+}
+
+.main-title {
+  font-size: clamp(2rem, 5vw + 1rem, 5rem);
+  line-height: 1;
+  color: white;
+  background: linear-gradient(-45deg, blue, red);
+  padding: 0.125em 0.5em;
+  margin-bottom: 1em;
+
+  width: fit-content;
+}
+
+p.max-content {
+  width: max-content;
+}
+
+p.min-content {
+  width: min-content;
+}

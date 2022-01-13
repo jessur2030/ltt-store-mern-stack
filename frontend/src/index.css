@@ -1,0 +1,467 @@
+/*==================== VARIABLES CSS ====================*/
+:root {
+  --header-height: 3rem;
+
+  /*========== Colors ==========*/
+  /* Change favorite color */
+  --hue-color: 240; /*Purple 250 - Green 142 - Blue 230 - Pink 340*/
+  /* --hue-color-secondary: 240; */
+  /* HSL color mode */
+
+  --title-color: hsl(var(--hue-color), 8%, 15%);
+  --text-color: hsl(var(--hue-color), 8%, 45%);
+  --text-color-light: hsl(var(--hue-color), 8%, 65%);
+  --container-color: hsl(0, 0%, 100%);
+  --body-color: hsl(240, 60%, 99%);
+  /* --bg-color-dark: hsl(240, 15%, 11%); */
+  --input-color: hsl(237, 17%, 22%);
+  --primary-color: hsl(240, 100%, 62%);
+  --color-secondary: hsl(237, 17%, 22%);
+
+  --scroll-bar-color: hsl(var(--hue-color), 12%, 90%);
+  --scroll-thumb-color: hsl(var(--hue-color), 12%, 80%);
+
+  /*========== bg-light colors ==========*/
+  --white-color: hsl(0, 0%, 100%);
+  --bg-color-dark: hsl(244, 19%, 14%);
+  --bg-color-dark-md: hsl(233, 19%, 18%);
+  --bg-color-dark-light: hsl(237, 17%, 22%);
+  --color-primary: hsl(212, 99%, 49%);
+
+  /*========== Font and typography ==========*/
+  --body-font: "Poppins", sans-serif;
+
+  /* .5rem = 8px, 1rem = 16px, 1.5rem = 24px ... */
+  --big-font-size: 2rem;
+  --h1-font-size: 1.5rem;
+  --h2-font-size: 1.25rem;
+  --h3-font-size: 1.125rem;
+  --normal-font-size: 0.938rem;
+  --small-font-size: 0.813rem;
+  --smaller-font-size: 0.75rem;
+
+  /*========== Font weight ==========*/
+  --font-medium: 500;
+  --font-semi-bold: 600;
+
+  /*========== Margin Bottom ==========*/
+  /* .25rem = 4px, .5rem = 8px, .75rem = 12px ... */
+  --mb-0-25: 0.25rem;
+  --mb-0-5: 0.5rem;
+  --mb-0-75: 0.75rem;
+  --mb-1: 1rem;
+  --mb-1-5: 1.5rem;
+  --mb-2: 2rem;
+  --mb-2-5: 2.5rem;
+  --mb-3: 3rem;
+
+  /*========== z index ==========*/
+  --z-tooltip: 10;
+  --z-fixed: 100;
+  --z-modal: 1000;
+}
+
+/* Font size for large devices */
+@media screen and (min-width: 968px) {
+  :root {
+    --big-font-size: 3rem;
+    --h1-font-size: 2.25rem;
+    --h2-font-size: 1.5rem;
+    --h3-font-size: 1.25rem;
+    --normal-font-size: 1rem;
+    --small-font-size: 0.875rem;
+    --smaller-font-size: 0.813rem;
+  }
+}
+
+/*========== Variables Dark theme ==========*/
+
+body.dark-theme {
+  /* HSL color mode */
+  --first-color-second: hsl(var(--hue-color), 30%, 8%);
+  --title-color: hsl(var(--hue-color), 8%, 95%);
+  --text-color: hsl(var(--hue-color), 8%, 75%);
+  --input-color: hsl(var(--hue-color), 29%, 16%);
+  --body-color: hsl(var(--hue-color), 28%, 12%);
+  /* --bg-body-color: hsl(244, 19%, 14%); */
+  --container-color: hsl(var(--hue-color), 29%, 16%);
+  /* --bg-color-dark: hsl(240, 15%, 11%); */
+  --color-secondary: hsl(0, 0%, 100%);
+  --scroll-bar-color: hsl(var(--hue-color), 12%, 48%);
+  --scroll-thumb-color: hsl(var(--hue-color), 12%, 36%);
+
+  /*========== bg-light colors ==========*/
+  --bg-color-dark: hsl(244, 19%, 14%);
+  --bg-color-dark-md: hsl(233, 19%, 18%);
+  --bg-color-dark-light: hsl(237, 17%, 22%);
+  /* --primary-color: hsl(240, 100%, 62%); */
+  --primary-color: hsl(212, 99%, 49%);
+
+  --color-primary: hsl(212, 99%, 49%);
+  --input-color: hsl(237, 17%, 22%);
+}
+
+/*========== Button Dark/Light ==========*/
+/* .nav__btns {
+  display: flex;
+  align-items: center;
+}
+
+.change-theme {
+  font-size: 1.25rem;
+  color: var(--text-color);
+  margin-right: var(--mb-1);
+  cursor: pointer;
+}
+
+.change-theme:hover {
+  color: var(--primary-color);
+} */
+
+/*==================== BASE ====================*/
+/* Reset */
+/* Box sizing rules */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  /* margin: 0 0 var(--header-height) 0; */
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  background-color: var(--body-color);
+  color: #242424;
+  overflow-x: hidden;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Font size for large devices */
+/* @media screen and (min-width: 968px) {
+  :root {
+    --big-font-size: 3rem;
+    --h1-font-size: 2.25rem;
+    --h2-font-size: 1.5rem;
+    --h3-font-size: 1.25rem;
+    --normal-font-size: 1rem;
+    --small-font-size: 0.875rem;
+    --smaller-font-size: 0.813rem;
+  }
+} */
+
+/* utility classes */
+.py-3 {
+  padding-top: 3rem;
+}
+.py-5 {
+  padding-top: 5rem;
+}
+.pb-3 {
+  padding-bottom: 3rem;
+}
+.pb-5 {
+  padding-bottom: 5rem;
+}
+
+.text-lg {
+  font-size: 4rem;
+  /* font-weight: 600; */
+}
+.text-md {
+  font-size: 2.25rem;
+  font-weight: 400;
+}
+.text-small {
+  font-size: 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* // */
+.rating span {
+  margin: 0.1rem;
+}
+
+.dev-mode {
+  background: linear-gradient(80deg, #d45e95, #9c6ca6, #6583c1);
+}
+
+/* main {
+  max-width: 700px;
+  text-align: center;
+} */
+
+/* #header {
+  background-color: blue; */
+/* position: fixed;
+  top: 0;
+  width: 100%;
+
+  overflow: hidden;
+  z-index: 1;
+  background-color: var(--body-color); */
+/* } */
+
+.navbar {
+  position: sticky;
+  width: 100%;
+  height: auto;
+  top: 0;
+  width: 100%;
+  padding: 1rem;
+
+  background-color: var(--body-color);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 10%), 0 2px 2px rgb(0 0 0 / 6%),
+    0 0 2px rgb(0 0 0 / 7%);
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar ul {
+  display: flex;
+  align-items: center;
+}
+
+.navbar li {
+  margin: 0 15px;
+  font-weight: 500;
+}
+
+.nav-link {
+  text-decoration: none;
+  /* color: var(--text-color); */
+  color: #242424;
+}
+
+.navbar-brand {
+  /* color: var(--text-color); */
+  color: #242424;
+
+  font-weight: 600;
+}
+
+.nav-btn {
+  /* color: var(--text-color); */
+  color: #242424;
+
+  border: none;
+  background: none;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.navbar-nav-left {
+  text-transform: uppercase;
+  margin-left: 20px;
+
+  /* flex: 1; */
+}
+
+.navbar-nav-right {
+  display: flex;
+  justify-content: flex-end;
+  text-align: center;
+  align-items: center;
+  /* flex: 2; */
+  cursor: pointer;
+}
+
+.hidden {
+  transform: translateX(100%);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  position: fixed;
+  /* top: 63px; */
+  /* top: 0; */
+  right: 0;
+  background-color: #fff;
+  color: #000;
+  /* width: 88%; */
+  width: 95%;
+
+  height: 100%;
+  /* padding: 30px; */
+  padding: 3rem;
+  box-shadow: inset 0 4px 3px -3px rgb(0 0 0 / 10%),
+    inset 0 4px 2px -2px rgb(0 0 0 / 7%);
+  transition: all 0.3s;
+}
+/*
+Mobile Menu */
+/*.mobile-menu {
+  position: fixed;
+   top: 63px; 
+  top: 0;
+   top: 2%;  
+   transform: translateX(-6%); 
+  width: 90%;
+  right: 0;
+  bottom: 3%; 
+  background-color: #fff;
+  color: #000;
+  border-radius: 5px;
+  width: 88%; 
+  width: 95%;
+
+  height: 100%;
+  padding: 30px;
+  padding: 3rem;
+  box-shadow: inset 0 4px 3px -3px rgb(0 0 0 / 10%),
+    inset 0 4px 2px -2px rgb(0 0 0 / 7%);
+  transition: all 0.3s;
+}
+*/
+.hidden {
+  transform: translateX(100%);
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.menu {
+  display: none;
+  /* z-index: 1; */
+}
+
+#menu ul {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5rem;
+  /* background-color: aqua; */
+}
+
+/* .container {
+  max-width: 768px;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+} */
+
+#menu li {
+  font-size: var(--h1-font-size);
+  font-weight: 500;
+}
+
+/*========== SCROLL BAR ==========*/
+::-webkit-scrollbar {
+  width: 0.5rem;
+  background-color: var(--scroll-bar-color);
+  /* border-radius: 0.5rem; */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-thumb-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-color-light);
+}
+
+@media (max-width: 960px) {
+  /* .text-xl {
+    font-size: 30px;
+  }
+  .text-lg {
+    font-size: 25px;
+  }
+  .text-md {
+    font-size: 19px;
+  } */
+}
+
+@media (max-width: 768px) {
+  .menu {
+    display: block;
+  }
+  /* .grid-col-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-reversed :first-child {
+    order: 0;
+  } */
+
+  /* .navbar-brand {
+    width: 40px;
+    height: 40px;
+  } */
+
+  .footer {
+    text-align: center;
+  }
+
+  .navbar .navbar-nav-left {
+    display: none;
+  }
+
+  .navbar-nav-right {
+    flex: 1;
+  }
+  /* .navbar .navbar-nav-left,
+  .navbar .navbar-nav-right {
+    display: none;
+  } */
+}
+
+@media (min-width: 1440px) {
+  /* .box {
+    max-width: 1440px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .divider {
+    max-width: 100%;
+  } */
+}
