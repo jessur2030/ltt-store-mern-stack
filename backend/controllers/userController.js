@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 import generateToken from "../utils/generateToken.js";
 import User from "../models/userModel.js";
 
-//@desc Auth user and get Token
+//@desc Auth user and get Token controller function
 //@route POST /api/users/login
 //@access Public
 const authUser = asyncHandler(async (req, res) => {
@@ -26,7 +26,7 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-//@desc register user
+//@desc register user controller function
 //@route POST /api/users
 //@access Public
 const registerUser = asyncHandler(async (req, res) => {
@@ -60,9 +60,9 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-//@desc Auth user and get Token
-//@route POST /api/users/login
-//@access Public
+//@desc get user profile controller function
+//@route GET /api/users/profile
+//@access PRIVATE
 const getUserProfile = asyncHandler(async (req, res) => {
   //
   const user = await User.findById(req.user._id);
@@ -82,4 +82,35 @@ const getUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-export { authUser, registerUser, getUserProfile };
+//@desc update user profile controller function
+//@route PUT /api/users/profile
+//@access PRIVATE
+const updateUserProfile = asyncHandler(async (req, res) => {
+  //
+  const user = await User.findById(req.user._id);
+
+  //check for the user
+  //what we want updateUserProfile to return:
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    //check if a password was send
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    const updatedUser = await user.save();
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+      token: generateToken(updatedUser._id),
+    });
+  } else {
+    res.status(404);
+    throw new Error("User Not Found");
+  }
+});
+
+export { authUser, registerUser, getUserProfile, updateUserProfile };

@@ -6,7 +6,7 @@ import {
   productDetailsReducer,
 } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
-import { userLoginReducer } from "./reducers/userReducers";
+import { userLoginReducer, userRegisterReducer } from "./reducers/userReducers";
 
 const reducer = combineReducers({
   //define productListReducer as: productList
@@ -14,6 +14,7 @@ const reducer = combineReducers({
   productDetails: productDetailsReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
+  userRegister: userRegisterReducer,
 });
 
 const cartItemsFromLocalStorage = localStorage.getItem("cartItems")
@@ -28,6 +29,8 @@ const userInfoFromStorage = localStorage.getItem("userInfo")
 const initialState = {
   cart: { cartItems: cartItemsFromLocalStorage },
   userLogin: { userInfo: userInfoFromStorage },
+  //TODO: FIX BUG: FROM REGISTER : userInfo
+  // userRegister: { userInfo: userInfoFromStorage },
 };
 
 const middleware = [thunk];
