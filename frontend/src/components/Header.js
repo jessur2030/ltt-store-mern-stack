@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Button from "./Button";
 import {
@@ -11,7 +12,8 @@ import {
   UilSun,
   UilEdit,
 } from "@iconscout/react-unicons";
-
+import "./Header.css";
+import { logout } from "../actions/userActions.js";
 // UilShoppingBag
 import logo from "./logo-ltt.png";
 
@@ -23,10 +25,18 @@ const brand = {
 const Header = () => {
   const [click, setClick] = useState(true);
 
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   //handle click
   const handleClick = () => {
     setClick(!click);
     // document.body.classList.toggle("");
+  };
+
+  //logout handler
+  const logoutHandler = () => {
+    dispatch(logout());
   };
   return (
     // <header id="header">
@@ -63,11 +73,23 @@ const Header = () => {
             <li>
               <UilSearch />
             </li>
-            <li>
-              <Link to="/account">
+            <div className="dropdown">
+              <li>
                 <UilUserCircle />
-              </Link>
-            </li>
+                <div
+                  className="dropdown-content"
+                  id="username"
+                  // title={userInfo.name}
+                >
+                  <Link to="/profile">Profile</Link>
+                  {userInfo ? (
+                    <span onClick={logoutHandler}>Logout</span>
+                  ) : (
+                    <Link to="/login">Login</Link>
+                  )}
+                </div>
+              </li>
+            </div>
             <li>
               <Link to="/cart">
                 <UilShoppingCart />
