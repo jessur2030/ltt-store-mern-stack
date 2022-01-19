@@ -7,7 +7,7 @@
   padding: 1rem 0.5rem;
 }
 
-section {
+.section-form {
   width: 100%;
   max-width: 420px;
   min-height: 400px;
@@ -110,6 +110,14 @@ label {
   background-color: hsl(2, 63%, 92%);
   /* color: #82322f; */
   color: firebrick;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.success {
+  background-color: #d1e7dd;
+  /* color: #82322f; */
+  color: #0f7264;
   font-weight: bold;
   padding: 0.5rem;
   margin-bottom: 0.5rem;

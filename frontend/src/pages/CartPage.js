@@ -1,5 +1,11 @@
 import React, { useEffect } from "react";
-import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  useParams,
+  Link,
+  useLocation,
+  useNavigate,
+  useLinkClickHandler,
+} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { desktop, mobile, tablet } from "../responsive";
@@ -247,7 +253,14 @@ const CartPage = () => {
             <TopText>Wish List (0)</TopText>
           </TopTexts>
         </Top>
-        <Bottom>
+        {cartItems.length === 0 ? (
+          <div className="errmsg">
+            <h2>
+              {" "}
+              Your cart is empty <Link to="/">Go back</Link>
+            </h2>{" "}
+          </div>
+        ) : (
           <Info>
             {cartItems.map((item) => (
               <Product key={item.product}>
@@ -310,6 +323,8 @@ const CartPage = () => {
             ))}
             <Hr />
           </Info>
+        )}
+        <Bottom>
           <Summary>
             <SummaryTitle>Order Summary</SummaryTitle>
             <SummaryItem>
@@ -321,11 +336,11 @@ const CartPage = () => {
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
-              <SummaryItemPrice>$ 5.90</SummaryItemPrice>
+              <SummaryItemPrice>$0.00</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Shipping Discount</SummaryItemText>
-              <SummaryItemPrice>$ -5.90</SummaryItemPrice>
+              <SummaryItemPrice>$0.00</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>

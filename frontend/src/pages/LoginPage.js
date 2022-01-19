@@ -51,7 +51,7 @@ const LoginPage = () => {
   // }, [email, password]);
   return (
     <div className="form-container">
-      <section>
+      <section className="section-form">
         <div className="form-box">
           {/* <p
             ref={errRef}

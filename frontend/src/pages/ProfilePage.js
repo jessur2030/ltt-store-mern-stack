@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
-import { register } from "../actions/userActions";
-
-const RegisterPage = () => {
+import { getUserDetails, updateUserProfile } from "../actions/userActions";
+import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
+const ProfilePage = () => {
   //set focus on the first input: when to the component loads
   const userRef = useRef();
   //set our inputs state
@@ -19,24 +19,36 @@ const RegisterPage = () => {
 
   //dispatch
   const dispatch = useDispatch();
-  const userRegister = useSelector((state) => state.userRegister);
-  const { loading, error, userInfo } = userRegister;
+  const userDetails = useSelector((state) => state.userDetails);
+  const { loading, error, user } = userDetails;
 
-  const { search } = useLocation();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
-  const redirect = useLocation().search ? search.split("=")[1] : "/";
-  console.log(redirect);
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+  const { success } = userUpdateProfile;
+
   //set focus on input field
   useEffect(() => {
     userRef.current.focus();
   }, [userRef]);
 
-  //redirect if user is already login
   useEffect(() => {
-    if (userInfo) {
-      navigate(redirect);
+    //if user is not login: redirect to login page
+    if (!userInfo) {
+      navigate("/login");
+    } else {
+      //if not user : name : dispatch /profile
+      if (!user || !user.name || success) {
+        dispatch({ type: USER_UPDATE_PROFILE_RESET });
+        dispatch(getUserDetails("/profile"));
+      } else {
+        //if we do have the user: set the form fields
+        setName(user.name);
+        setEmail(user.email);
+      }
     }
-  }, [navigate, userInfo, redirect]);
+  }, [navigate, userInfo, dispatch, user, success]);
 
   //handleSubmit
   const handleSubmit = (e) => {
@@ -45,81 +57,76 @@ const RegisterPage = () => {
     if (password !== confirmPassword) {
       setMessage("Passwords do not match");
     } else {
-      dispatch(register(name, email, password));
+      //dispatch update profile :takes the user object
+      //pass user object we want to pass in to the action: { id: user._id, name, email, password }
+      dispatch(updateUserProfile({ id: user._id, name, email, password }));
     }
   };
 
   return (
-    <div className="form-container">
-      <section className="section-form">
-        <div className="form-box">
-          {/* <p
-        ref={errRef}
-        className={errMsg ? "errmsg" : "offscreen"}
-        aria-live="assertive"
-      >
-        {errMsg}
-      </p> */}
-          <h1>Register</h1>
+    <section>
+      <h2>User Profile</h2>
+      <div className="box box-b  grid-col-2">
+        <div className="">
           {message && <h3 className="errmsg">{message}</h3>}
           {error && <h3 className="errmsg">{error}</h3>}
+          {success && <h3 className="success">Profile updated</h3>}
           {loading && <Loader />}
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} autoComplete="off">
             <label htmlFor="name">Name</label>
             <input
               type="name"
               id="name"
+              autoComplete="off"
               placeholder="Enter Name"
               ref={userRef}
-              autoComplete="off"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              required
+              // required
             />
             <label htmlFor="email">Email</label>
             <input
               type="email"
+              autoComplete="off"
               id="email"
               placeholder="Enter email"
               ref={userRef}
-              autoComplete="off"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
+              // required
             />
             <label htmlFor="password">Password</label>
             <input
               type="password"
               id="password"
+              autoComplete="off"
               placeholder="Enter password"
               onChange={(e) => setPassword(e.target.value)}
-              autoComplete="off"
               value={password}
-              required
+              // required
             />
             <label htmlFor="password">Confirm Password</label>
             <input
               type="password"
               id="confirmPassword"
+              autoComplete="off"
               placeholder="Confirm password"
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmPassword}
-              required
+              // required
             />
             <button type="submit" className="btn-form">
-              Continue
+              Update
             </button>
           </form>
-          <p>
-            Have an account?{" "}
-            <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
-              Login
-            </Link>
-          </p>
         </div>
-      </section>
-    </div>
+
+        <div className="box-text">
+          <h2>My order</h2>
+        </div>
+      </div>
+    </section>
   );
 };
 
-export default RegisterPage;
+export default ProfilePage;

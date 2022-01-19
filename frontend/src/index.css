@@ -61,19 +61,6 @@
   --z-modal: 1000;
 }
 
-/* Font size for large devices */
-@media screen and (min-width: 968px) {
-  :root {
-    --big-font-size: 3rem;
-    --h1-font-size: 2.25rem;
-    --h2-font-size: 1.5rem;
-    --h3-font-size: 1.25rem;
-    --normal-font-size: 1rem;
-    --small-font-size: 0.875rem;
-    --smaller-font-size: 0.813rem;
-  }
-}
-
 /*========== Variables Dark theme ==========*/
 
 body.dark-theme {
@@ -179,19 +166,6 @@ img {
   height: auto;
 }
 
-/* Font size for large devices */
-/* @media screen and (min-width: 968px) {
-  :root {
-    --big-font-size: 3rem;
-    --h1-font-size: 2.25rem;
-    --h2-font-size: 1.5rem;
-    --h3-font-size: 1.25rem;
-    --normal-font-size: 1rem;
-    --small-font-size: 0.875rem;
-    --smaller-font-size: 0.813rem;
-  }
-} */
-
 /* utility classes */
 .py-3 {
   padding-top: 3rem;
@@ -230,22 +204,6 @@ img {
 .dev-mode {
   background: linear-gradient(80deg, #d45e95, #9c6ca6, #6583c1);
 }
-
-/* main {
-  max-width: 700px;
-  text-align: center;
-} */
-
-/* #header {
-  background-color: blue; */
-/* position: fixed;
-  top: 0;
-  width: 100%;
-
-  overflow: hidden;
-  z-index: 1;
-  background-color: var(--body-color); */
-/* } */
 
 .navbar {
   position: sticky;
@@ -338,31 +296,7 @@ img {
     inset 0 4px 2px -2px rgb(0 0 0 / 7%);
   transition: all 0.3s;
 }
-/*
-Mobile Menu */
-/*.mobile-menu {
-  position: fixed;
-   top: 63px; 
-  top: 0;
-   top: 2%;  
-   transform: translateX(-6%); 
-  width: 90%;
-  right: 0;
-  bottom: 3%; 
-  background-color: #fff;
-  color: #000;
-  border-radius: 5px;
-  width: 88%; 
-  width: 95%;
 
-  height: 100%;
-  padding: 30px;
-  padding: 3rem;
-  box-shadow: inset 0 4px 3px -3px rgb(0 0 0 / 10%),
-    inset 0 4px 2px -2px rgb(0 0 0 / 7%);
-  transition: all 0.3s;
-}
-*/
 .hidden {
   transform: translateX(100%);
 }
@@ -382,12 +316,6 @@ Mobile Menu */
   row-gap: 1.5rem;
   /* background-color: aqua; */
 }
-
-/* .container {
-  max-width: 768px;
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
-} */
 
 #menu li {
   font-size: var(--h1-font-size);
@@ -409,6 +337,30 @@ Mobile Menu */
   background-color: var(--text-color-light);
 }
 
+/* Grid Styles */
+
+.grid-col-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+}
+.box-text {
+  max-width: 500px;
+  text-align: center;
+  justify-self: center;
+  padding: 20px 0;
+  margin: 0 auto;
+}
+.box {
+  margin-bottom: 30px;
+}
+
+.box-text .btn {
+  margin-top: 20px;
+}
+
 @media (max-width: 960px) {
   /* .text-xl {
     font-size: 30px;
@@ -425,9 +377,10 @@ Mobile Menu */
   .menu {
     display: block;
   }
-  /* .grid-col-2 {
+  .grid-col-2 {
     grid-template-columns: 1fr;
   }
+  /*
 
   .grid-reversed :first-child {
     order: 0;
@@ -456,12 +409,9 @@ Mobile Menu */
 }
 
 @media (min-width: 1440px) {
-  /* .box {
+  .box {
     max-width: 1440px;
     margin-right: auto;
     margin-left: auto;
   }
-  .divider {
-    max-width: 100%;
-  } */
 }
