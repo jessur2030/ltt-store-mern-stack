@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  useParams,
-  Link,
-  useLocation,
-  useNavigate,
-  useLinkClickHandler,
-} from "react-router-dom";
+import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { desktop, mobile, tablet } from "../responsive";
@@ -213,14 +207,13 @@ const Option = styled.option`
 
 const CartPage = () => {
   const { id: productId } = useParams();
-
+  const navigate = useNavigate();
   const search = useLocation().search;
   const qty = search ? +search.split("=")[1] : 1;
 
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
-  console.log(cartItems);
 
   //useEffect
   useEffect(() => {
@@ -234,13 +227,17 @@ const CartPage = () => {
   const removeFromCartHandler = (id) => {
     dispatch(removeCartItem(id));
   };
+
+  const checkOutHandler = () => {
+    navigate("/login?redirect=/shipping");
+  };
   return (
     <Container>
       {/* <Navbar />
       <Announcement /> */}
 
       <Wrapper>
-        <Title>YOUR BAG</Title>
+        <Title>Your Bag</Title>
         <Top>
           <Link to="/">
             <TopButton>Go back</TopButton>
@@ -353,7 +350,13 @@ const CartPage = () => {
               </SummaryItemPrice>
             </SummaryItem>
 
-            <Button>Checkout </Button>
+            <Button
+              type="button"
+              disabled={cartItems.length === 0}
+              onClick={checkOutHandler}
+            >
+              Checkout{" "}
+            </Button>
           </Summary>
         </Bottom>
       </Wrapper>

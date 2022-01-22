@@ -5,7 +5,7 @@ import connectDB from "./config/db.js";
 //brings productRoutes.js
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-// import { use } from "express/lib/application";
+import orderRoutes from "./routes/orderRoutes.js";
 
 //calls dotenv
 dotenv.config();
@@ -33,6 +33,9 @@ app.use("/api/products", productRoutes);
 
 //mount /api/users
 app.use("/api/users/", userRoutes);
+
+//mount /api/order
+app.use("/api/order/", orderRoutes);
 
 //fall back for 404 errors : for something that is not a valid route
 app.use(notFound);

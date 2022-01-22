@@ -18,6 +18,17 @@
   background-color: #ffffff;
   box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.15);
 }
+.section-payment {
+  width: 100%;
+  max-width: 500px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 3.5rem 3rem;
+  background-color: #ffffff;
+  /* box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.15); */
+}
 
 .form-box {
   padding: 0 1.25rem;
@@ -43,6 +54,10 @@ border: 1px solid #ccc; */
 input[type="name"],
 input[type="email"],
 input[type="password"],
+input[type="address"],
+input[type="city"],
+input[type="postalCode"],
+input[type="country"],
 textarea {
   width: 100%;
   font-size: 1rem;
@@ -58,6 +73,18 @@ textarea {
 }
 
 .btn-form {
+  padding: 0.625rem;
+  font-size: 1.25rem;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  color: #ffffff;
+  background-color: #242424;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+.btn-secondary {
+  max-width: 50%;
   padding: 0.625rem;
   font-size: 1.25rem;
   margin-top: 1rem;

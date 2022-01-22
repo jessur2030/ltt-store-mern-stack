@@ -224,6 +224,10 @@ img {
   justify-content: space-between;
 }
 
+/* .nav .navbar{
+  text-align: center;
+} */
+
 .navbar ul {
   display: flex;
   align-items: center;
@@ -259,7 +263,7 @@ img {
 }
 
 .navbar-nav-left {
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   margin-left: 20px;
 
   /* flex: 1; */
@@ -271,6 +275,8 @@ img {
   text-align: center;
   align-items: center;
   /* flex: 2; */
+}
+.navbar-nav-right {
   cursor: pointer;
 }
 

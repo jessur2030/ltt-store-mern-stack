@@ -2,27 +2,47 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Button from "./Button";
+import logo from "./logo-ltt.png";
+import "./Header.css";
+import { logout } from "../actions/userActions.js";
+import Badge from "@mui/material/Badge";
 import {
   UilSearch,
   UilUserCircle,
-  UilShoppingCart,
   UilEllipsisV,
   UilTimes,
+  UilShoppingCart,
   UilMoon,
   UilSun,
   UilEdit,
 } from "@iconscout/react-unicons";
-import "./Header.css";
-import { logout } from "../actions/userActions.js";
-// UilShoppingBag
-import logo from "./logo-ltt.png";
 
+import {
+  ShoppingBagOutlined,
+  // MoreVertOutlined,
+  // Close,
+  // AccountCircle,
+  // Search,
+} from "@mui/icons-material";
+//MoreVertOutlined
+// ShoppingBagOutlinedIcon
+// ShoppingCartOutlined
+// StarHalf
+// Star
+// StarOutline
+// ChevronRightOutlined
+//ChevronLeftOutlined
+//BrightnessMediumOutlined
+//Brightness5Outlined
 const brand = {
   hight: "30px",
   width: "30px",
 };
 
 const Header = () => {
+  const cart = useSelector((state) => state.cart);
+  const quantity = cart.cartItems.reduce((curr, item) => item.qty + curr, 0);
+  console.log(quantity);
   const [click, setClick] = useState(true);
 
   const dispatch = useDispatch();
@@ -42,6 +62,7 @@ const Header = () => {
     // <header id="header">
     <>
       <nav className="navbar">
+        {/* //BUG: TODO: fix navbar style issus */}
         <div className="navbar-container">
           <Link className="navbar-brand" to="/">
             <img src={logo} style={brand} alt="LTT logo" />
@@ -92,7 +113,9 @@ const Header = () => {
             </div>
             <li>
               <Link to="/cart">
-                <UilShoppingCart />
+                <Badge badgeContent={quantity} color="primary">
+                  <UilShoppingCart />
+                </Badge>
               </Link>
             </li>
           </ul>
@@ -105,17 +128,6 @@ const Header = () => {
               text={click ? <UilEllipsisV /> : <UilTimes />}
             />
           </div>
-          {/* 
-          <button
-            type="button"
-            className="hamburger"
-            onClick={handleClick}
-            id="menu-btn"
-            >
-            <span className="hamburger-top"></span>
-            <span className="hamburger-middle"></span>
-            <span className="hamburger-bottom"></span>
-          </button> */}
         </div>
       </nav>
 

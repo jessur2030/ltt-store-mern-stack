@@ -9,6 +9,9 @@ import CartPage from "./pages/CartPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
+import ShippingPage from "./pages/ShippingPage";
+import PaymentPage from "./pages/PaymentPage";
+import OrderPage from "./pages/OrdePage";
 const App = () => {
   return (
     <Router>
@@ -18,6 +21,9 @@ const App = () => {
       <main className=" ">
         {/* <section className="section grid"> */}
         <Routes>
+          <Route path="/placeorder" element={<OrderPage />} />
+          <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/shipping" element={<ShippingPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />

@@ -1,6 +1,11 @@
 import axios from "axios";
 import { async } from "regenerator-runtime";
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../constants/cartConstants";
+import {
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  CART_SAVE_PAYMENT_METHOD,
+  CART_SAVE_SHIPPING_ADDRESS,
+} from "../constants/cartConstants";
 
 //handle our add to cart request
 //we will get id, qty : from the url
@@ -33,4 +38,28 @@ export const removeCartItem = (id) => async (dispatch, getState) => {
   });
 
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
+};
+
+//save shipping address action
+//takes the form data
+export const saveShippingAddress = (data) => async (dispatch) => {
+  ////dispatch saveShippingAddress data
+  dispatch({
+    type: CART_SAVE_SHIPPING_ADDRESS,
+    payload: data,
+  });
+
+  localStorage.setItem("shippingAddress", JSON.stringify(data));
+};
+
+//save save payment method action
+//takes the data from payment page selection
+export const savePaymentMethod = (data) => async (dispatch) => {
+  ////dispatch saveShippingAddress data
+  dispatch({
+    type: CART_SAVE_PAYMENT_METHOD,
+    payload: data,
+  });
+
+  localStorage.setItem("paymentMethod", JSON.stringify(data));
 };
