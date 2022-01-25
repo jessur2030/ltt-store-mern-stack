@@ -16,13 +16,14 @@ const PaymentPage = () => {
 
   const [paymentMethod, setPaymentMethod] = useState("PayPal");
 
-  //submit handler function
+  ///submit handler function
   const submitHandler = (e) => {
     e.preventDefault();
-    //dispatch saveShippingAddress
+    //dispatch savePaymentMethod: paymentMethod
     dispatch(savePaymentMethod(paymentMethod));
     navigate("/placeorder");
   };
+
   return (
     <div className="form-container">
       <CheckoutSteps step1 step2 step3 />

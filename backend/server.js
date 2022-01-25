@@ -35,7 +35,12 @@ app.use("/api/products", productRoutes);
 app.use("/api/users/", userRoutes);
 
 //mount /api/order
-app.use("/api/order/", orderRoutes);
+app.use("/api/orders", orderRoutes);
+
+//config route for getting our PAYPAL_CLIENT_ID
+app.use("/api/config/paypal", (req, res) =>
+  res.send(process.env.PAYPAL_CLIENT_ID)
+);
 
 //fall back for 404 errors : for something that is not a valid route
 app.use(notFound);

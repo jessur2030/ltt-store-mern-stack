@@ -11,7 +11,8 @@ import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import ShippingPage from "./pages/ShippingPage";
 import PaymentPage from "./pages/PaymentPage";
-import OrderPage from "./pages/OrdePage";
+import PlaceOrder from "./pages/PlaceOrder";
+import OrderPage from "./pages/OrderPage";
 const App = () => {
   return (
     <Router>
@@ -21,7 +22,8 @@ const App = () => {
       <main className=" ">
         {/* <section className="section grid"> */}
         <Routes>
-          <Route path="/placeorder" element={<OrderPage />} />
+          <Route path="/order/:id" element={<OrderPage />} />
+          <Route path="/placeorder" element={<PlaceOrder />} />
           <Route path="/payment" element={<PaymentPage />} />
           <Route path="/shipping" element={<ShippingPage />} />
           <Route path="/profile" element={<ProfilePage />} />

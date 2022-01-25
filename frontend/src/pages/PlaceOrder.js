@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import Newsletter from "../components/Newsletter";
 import CheckoutSteps from "../components/CheckoutSteps";
+import { createOrder } from "../actions/orderActions.js";
 
 const Container = styled.div``;
 
@@ -137,8 +138,9 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const Cart = () => {
+const PlaceOrder = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
 
   //helper function: add decimals to a giving num
@@ -162,8 +164,30 @@ const Cart = () => {
     Number(cart.taxPrice)
   ).toFixed(2);
 
+  //state form orderCreate
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { order, success, error } = orderCreate;
+  //if   success
+  useEffect(() => {
+    if (success) {
+      navigate(`/order/${order._id}`);
+    }
+    //eslint-disable-next-line
+  }, [navigate, success]);
+
   const placeOrderHandler = () => {
-    console.log("place order!!!");
+    //dispatch
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      })
+    );
   };
   return (
     <Container>
@@ -191,7 +215,8 @@ const Cart = () => {
 
                   <Details>
                     <ProductName>
-                      <b>Product:</b> {item.name}
+                      <b>Product:</b>{" "}
+                      <Link to={`/product/${item.product}`}>{item.name}</Link>
                     </ProductName>
 
                     {/* <ProductId>
@@ -246,6 +271,9 @@ const Cart = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ {cart.totalPrice}</SummaryItemPrice>
             </SummaryItem>
+            {/* <SummaryItem> */}
+            {error && <h2 className="errmsg">{error}</h2>}
+            {/* </SummaryItem> */}
 
             <Button
               type="button"
@@ -261,4 +289,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default PlaceOrder;
