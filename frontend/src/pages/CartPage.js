@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { desktop, mobile, tablet } from "../responsive";
+import { mobile } from "../responsive";
 
 //addToCart action
 import { addToCart, removeCartItem } from "../actions/cartActions";
-import { UilTrashAlt } from "@iconscout/react-unicons";
+
 import Newsletter from "../components/Newsletter";
 
 const Container = styled.div``;
@@ -23,47 +23,17 @@ const Title = styled.h1`
 const Top = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   padding: 20px;
+  font-weight: 300;
+
   ${mobile({ padding: "10px 0" })}
 `;
 
-const TopButton = styled.button`
-  width: 11rem;
-  padding: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  border: ${(props) => props.type === "filled" && "none"};
-  background-color: ${(props) =>
-    props.type === "filled" ? "#333" : "transparent"};
-  color: ${(props) => props.type === "filled" && "#fff"};
-  ${mobile({ width: "10rem" })}
-`;
-
-const TopTexts = styled.div`
-  ${mobile({ display: "none" })}
-`;
-
-const TopText = styled.span`
-  text-decoration: underline;
-  /* cursor: pointer; */
-  margin: 0 10px;
-`;
-
 const Bottom = styled.div`
-  /* cursor: pointer; */
   display: flex;
   justify-content: space-between;
   ${mobile({ flexDirection: "column" })}
-`;
-const BottomRemove = styled.button`
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 40px;
-  margin-bottom: 10px;
-  ${mobile({ marginBottom: "0" })}
 `;
 
 const Info = styled.div`
@@ -95,17 +65,12 @@ const Details = styled.div`
 
 const ProductName = styled.span``;
 
-const ProductId = styled.span``;
+const ProductCountInStock = styled.span``;
 
-const ProductColor = styled.div`
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: ${(props) => props.color};
-  /* cursor: pointer; */
+const RemoveProduct = styled.p`
+  cursor: pointer;
+  color: #006aff;
 `;
-
-const ProductSize = styled.div``;
 
 const Hr = styled.hr`
   background-color: #eeee;
@@ -120,35 +85,20 @@ const PriceDetail = styled.div`
   align-items: center;
   justify-content: center;
   ${mobile({
-    flexDirection: "row-reverse",
+    flexDirection: "column",
+    // flexDirection: "row-reverse",
     justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: "flex-end",
     padding: "10px 0",
-  })}/* ${mobile({
-    padding: "10px 0",
-  })} */
+  })}
 `;
 
-const ProductAmountContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  ${mobile({ marginBottom: "0" })}
-`;
-const RemoveProduct = styled.div`
-  cursor: ;
-`;
-
-const ProductAmount = styled.span`
-  font-size: 24px;
-
-  margin: 5px;
-
-  /* ${mobile({ margin: "5px 15px " })} */
-  ${mobile({ margin: "0 15px", fontSize: "30px" })}
-`;
 const ProductPrice = styled.span`
-  font-size: 30px;
+  font-size: 24px;
+  font-weight: 200;
+`;
+const Products = styled.span`
+  font-size: 1rem;
   font-weight: 200;
 `;
 
@@ -181,19 +131,20 @@ const Button = styled.button`
   width: 100%;
   padding: 10px;
   margin-bottom: 20px 0;
-  background-color: #333;
+  /* background-color: #333; */
+  background-color: #005ad9;
   color: #fff;
   font-weight: 600;
   border: none;
 
   cursor: pointer;
+  &:hover {
+    background-color: #05c;
+  }
 `;
 
-// const ProductSelect = styled.select``;
-// const ProductOption = styled.option`
-
-// `;
 const Select = styled.select`
+  max-width: 6rem;
   padding: 10px;
   margin-right: 20px;
   font-weight: 600;
@@ -233,135 +184,117 @@ const CartPage = () => {
   };
   return (
     <Container>
-      {/* <Navbar />
-      <Announcement /> */}
-
       <Wrapper>
         <Title>Your Bag</Title>
-        <Top>
-          <Link to="/">
-            <TopButton>Go back</TopButton>
-          </Link>
-          <TopTexts>
-            <TopText>
-              Shopping bag ({cartItems.reduce((acc, item) => acc + item.qty, 0)}
-              )
-            </TopText>
-            <TopText>Wish List (0)</TopText>
-          </TopTexts>
-        </Top>
+        <Top></Top>
         {cartItems.length === 0 ? (
-          <div className="errmsg">
-            <h2>
-              {" "}
-              Your cart is empty <Link to="/">Go back</Link>
-            </h2>{" "}
+          <div className="message-container">
+            <div
+              style={
+                {
+                  // display: "flex",
+                  // justifyContent: "center",
+                  // alignItems: "center",
+                }
+              }
+            >
+              <h2 style={{ paddingBottom: ".75rem", textAlign: "center" }}>
+                {" "}
+                Nothing yet.
+              </h2>{" "}
+              <p style={{ paddingBottom: "1.75rem" }}>
+                Start adding to your cart to view them here.
+              </p>
+              <Link to="/">
+                <Button>Browse Products</Button>
+              </Link>
+            </div>
           </div>
         ) : (
-          <Info>
-            {cartItems.map((item) => (
-              <Product key={item.product}>
-                <ProductDetail>
-                  <Image src={item.image} />
+          <Bottom>
+            <Info>
+              {cart.cartItems.map((item, index) => (
+                <Product key={index}>
+                  <ProductDetail>
+                    <Image src={item.image} />
 
-                  <Details>
-                    <ProductName>
-                      <Link to={`/product/${item.product}`}>{item.name}</Link>
-                    </ProductName>
-
-                    {/* <ProductId>
-                      <b>Item Id:</b> {item._id}
-                    </ProductId>
-                    <ProductColor color={item.color} />
-
-                    <ProductSize>
-                      <b>Size:</b> {item.size}
-                    </ProductSize> */}
-                  </Details>
-                </ProductDetail>
-                <PriceDetail>
-                  <RemoveProduct>
-                    <BottomRemove
+                    <Details>
+                      <ProductCountInStock>
+                        {item.countInStock > 0 ? (
+                          <p style={{ color: "#00B23B" }}> In stock</p>
+                        ) : (
+                          <p style={{ color: "red" }}></p>
+                        )}
+                      </ProductCountInStock>
+                      <ProductName>
+                        <Link to={`/product/${item.product}`}>{item.name}</Link>
+                      </ProductName>
+                      <Select
+                        as="select"
+                        value={item.qty}
+                        onChange={(e) =>
+                          dispatch(
+                            addToCart(item.product, Number(e.target.value))
+                          )
+                        }
+                      >
+                        {[...Array(item.countInStock).keys()].map((x) => (
+                          <Option key={x + 1} value={x + 1}>
+                            {x + 1}
+                          </Option>
+                        ))}
+                      </Select>
+                    </Details>
+                  </ProductDetail>
+                  <PriceDetail>
+                    <ProductPrice>${item.qty * item.price}</ProductPrice>
+                    <RemoveProduct
                       type="button"
                       onClick={() => removeFromCartHandler(item.product)}
                     >
-                      <UilTrashAlt />
-                    </BottomRemove>
-                  </RemoveProduct>
-                  <ProductAmountContainer>
-                    <Select
-                      as="select"
-                      value={item.qty}
-                      onChange={(e) =>
-                        dispatch(
-                          addToCart(item.product, Number(e.target.value))
-                        )
-                      }
-                    >
-                      {[...Array(item.countInStock).keys()].map((x) => (
-                        <Option key={x + 1} value={x + 1}>
-                          {x + 1}
-                        </Option>
-                        // <option
-                        //   style={{ padding: "20px" }}
-                        //   key={x + 1}
-                        //   value={x + 1}
-                        // >
-                        //   {x + 1}
-                        // </option>
-                      ))}
-                      {/* <ProductOption>1</ProductOption> */}
-                    </Select>
-                  </ProductAmountContainer>
-                  <ProductPrice>$ {item.price}</ProductPrice>
-                </PriceDetail>
-                <Hr />
-              </Product>
-            ))}
-            <Hr />
-          </Info>
-        )}
-        <Bottom>
-          <Summary>
-            <SummaryTitle>Order Summary</SummaryTitle>
-            <SummaryItem>
-              <SummaryItemText>Subtotal items</SummaryItemText>
-              <SummaryItemPrice>
-                ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
-              </SummaryItemPrice>
-              {/* <SummaryItemPrice>$ {cart.total}</SummaryItemPrice> */}
-            </SummaryItem>
-            <SummaryItem>
-              <SummaryItemText>Estimated Shipping</SummaryItemText>
-              <SummaryItemPrice>$0.00</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem>
-              <SummaryItemText>Shipping Discount</SummaryItemText>
-              <SummaryItemPrice>$0.00</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem type="total">
-              <SummaryItemText>Total</SummaryItemText>
-              {/* <SummaryItemPrice>$ {cart.total}</SummaryItemPrice> */}
-              <SummaryItemPrice>
-                ${" "}
-                {cartItems
-                  .reduce((acc, item) => acc + item.qty * item.price, 0)
-                  .toFixed(2)}
-              </SummaryItemPrice>
-            </SummaryItem>
+                      Remove
+                    </RemoveProduct>
+                  </PriceDetail>
+                  <Hr />
+                </Product>
+              ))}
+            </Info>
+            <Summary>
+              <SummaryTitle>Order Summary</SummaryTitle>
+              <SummaryItem>
+                <SummaryItemText>Subtotal items</SummaryItemText>
+                <SummaryItemPrice>
+                  ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
+                </SummaryItemPrice>
+                {/* <SummaryItemPrice>$ {cart.total}</SummaryItemPrice> */}
+              </SummaryItem>
+              <SummaryItem>
+                <SummaryItemText>Tax</SummaryItemText>
+                <SummaryItemPrice>To be calculated</SummaryItemPrice>
+              </SummaryItem>
 
-            <Button
-              type="button"
-              disabled={cartItems.length === 0}
-              onClick={checkOutHandler}
-            >
-              Checkout{" "}
-            </Button>
-          </Summary>
-        </Bottom>
+              <SummaryItem type="total">
+                <SummaryItemText>Total</SummaryItemText>
+                {/* <SummaryItemPrice>$ {cart.total}</SummaryItemPrice> */}
+                <SummaryItemPrice>
+                  ${" "}
+                  {cartItems
+                    .reduce((acc, item) => acc + item.qty * item.price, 0)
+                    .toFixed(2)}
+                </SummaryItemPrice>
+              </SummaryItem>
+
+              <Button
+                type="button"
+                disabled={cart.cartItems.length === 0}
+                onClick={checkOutHandler}
+              >
+                Place Order
+              </Button>
+            </Summary>
+          </Bottom>
+        )}
       </Wrapper>
-      {/* <Newsletter /> */}
-      {/* <Footer /> */}
     </Container>
   );
 };
