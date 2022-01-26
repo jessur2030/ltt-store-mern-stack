@@ -26,14 +26,14 @@ const Top = styled.div`
   /* justify-content: space-between; */
   padding: 20px;
   font-weight: 300;
-
   ${mobile({ padding: "10px 0" })}
 `;
 
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
-  ${mobile({ flexDirection: "column" })}
+
+  ${mobile({ flexDirection: "column" })};
 `;
 
 const Info = styled.div`
@@ -136,6 +136,7 @@ const Button = styled.button`
   color: #fff;
   font-weight: 600;
   border: none;
+  border-radius: 5px;
 
   cursor: pointer;
   &:hover {
@@ -185,7 +186,7 @@ const CartPage = () => {
   return (
     <Container>
       <Wrapper>
-        <Title>Your Bag</Title>
+        {/* <Title>Your Bag</Title> */}
         <Top></Top>
         {cartItems.length === 0 ? (
           <div className="message-container">
@@ -255,7 +256,7 @@ const CartPage = () => {
                       Remove
                     </RemoveProduct>
                   </PriceDetail>
-                  <Hr />
+                  {/* <Hr /> */}
                 </Product>
               ))}
             </Info>
