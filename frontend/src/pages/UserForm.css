@@ -89,10 +89,17 @@ textarea {
   margin-top: 1rem;
   padding: 0.5rem;
   color: #ffffff;
-  background-color: #242424;
+  background-color: #005ad9;
+  font-weight: 600;
+  border-radius: 5px;
+
   cursor: pointer;
   border: none;
   text-decoration: none;
+}
+
+.btn-form:hover {
+  background-color: #05c;
 }
 .btn-secondary {
   max-width: 50%;
@@ -101,10 +108,16 @@ textarea {
   margin-top: 1rem;
   padding: 0.5rem;
   color: #ffffff;
-  background-color: #242424;
+  background-color: #005ad9;
+  font-weight: 600;
+
   cursor: pointer;
   border: none;
   text-decoration: none;
+  border-radius: 5px;
+}
+.btn-secondary:hover {
+  background-color: #05c;
 }
 
 label {

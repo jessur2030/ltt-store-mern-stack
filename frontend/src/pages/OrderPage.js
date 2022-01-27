@@ -306,7 +306,10 @@ const OrderPage = () => {
                   <SummaryItemText>
                     <strong> Paid on</strong>
                   </SummaryItemText>
-                  <SummaryItemPrice> {order.paidAt}</SummaryItemPrice>
+                  <SummaryItemPrice>
+                    {" "}
+                    {order.paidAt.substring(0, 10)}
+                  </SummaryItemPrice>
                 </SummaryItem>
               ) : (
                 <SummaryItem className="errmsg">

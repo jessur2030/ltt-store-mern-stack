@@ -1,5 +1,4 @@
 import axios from "axios";
-import { async } from "regenerator-runtime";
 import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -8,13 +7,15 @@ import {
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
   USER_LOGOUT,
-  USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
+  USER_DETAILS_FAIL,
+  USER_DETAILS_RESET,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
 } from "../constants/userConstants";
+import { ORDER_LIST_MY_RESET } from "../constants/orderContants.js";
 
 //dispatch our request
 //make our request
@@ -54,9 +55,12 @@ export const login = (email, password) => async (dispatch) => {
 
 //logout
 export const logout = () => (dispatch) => {
-  //remove userInfo from local storage
+  //remove from local storage
   localStorage.removeItem("userInfo");
   dispatch({ type: USER_LOGOUT });
+  //Clear state when logout
+  dispatch({ type: USER_DETAILS_RESET });
+  dispatch({ type: ORDER_LIST_MY_RESET });
 };
 
 //register action

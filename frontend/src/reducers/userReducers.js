@@ -1,3 +1,4 @@
+import { ORDER_DETAILS_REQUEST } from "../constants/orderContants";
 import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -9,6 +10,7 @@ import {
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
   USER_DETAILS_FAIL,
+  USER_DETAILS_RESET,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
@@ -17,7 +19,7 @@ import {
 
 //userLoginReducer
 export const userLoginReducer = (state = {}, action) => {
-  //switch: check login action types
+  //login case
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return { loading: true };
@@ -57,6 +59,8 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
       return { loading: false, user: action.payload };
     case USER_DETAILS_FAIL:
       return { loading: false, error: action.payload };
+    case USER_DETAILS_RESET:
+      return { user: {} };
     default:
       return state;
   }

@@ -31,8 +31,8 @@ app.get("/", (req, res) => {
 //mount /api/products : to productRoutes
 app.use("/api/products", productRoutes);
 
-//mount /api/users
-app.use("/api/users/", userRoutes);
+//mount userRoutes
+app.use("/api/users", userRoutes);
 
 //mount /api/order
 app.use("/api/orders", orderRoutes);

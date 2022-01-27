@@ -130,12 +130,17 @@ const Button = styled.button`
   width: 100%;
   padding: 10px;
   margin-bottom: 20px 0;
-  background-color: #333;
+  /* background-color: #333; */
+  background-color: #005ad9;
   color: #fff;
   font-weight: 600;
   border: none;
+  border-radius: 5px;
 
   cursor: pointer;
+  &:hover {
+    background-color: #05c;
+  }
 `;
 
 const PlaceOrder = () => {

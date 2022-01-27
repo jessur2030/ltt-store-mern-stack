@@ -10,7 +10,9 @@ import {
   ORDER_PAY_REQUEST,
   ORDER_PAY_SUCCESS,
   ORDER_PAY_FAIL,
-  ORDER_PAY_RESET,
+  ORDER_LIST_MY_REQUEST,
+  ORDER_LIST_MY_SUCCESS,
+  ORDER_LIST_MY_FAIL,
 } from "../constants/orderContants";
 
 //orderCreate Action function
@@ -129,3 +131,38 @@ export const payOrder =
       });
     }
   };
+
+//get user list orders
+export const listMyOrders = () => async (dispatch, getState) => {
+  try {
+    //dispatch our request
+    dispatch({ type: ORDER_LIST_MY_REQUEST });
+
+    //GET USER TOKEN
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    //auth headers
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    //fetch order list data
+    const { data } = await axios.get(`/api/orders/myorders`, config);
+
+    //dispatch order list data
+    dispatch({ type: ORDER_LIST_MY_SUCCESS, payload: data });
+  } catch (error) {
+    //dispatch possible error
+    dispatch({
+      type: ORDER_LIST_MY_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};

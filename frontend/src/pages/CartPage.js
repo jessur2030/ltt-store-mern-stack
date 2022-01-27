@@ -8,6 +8,7 @@ import { mobile } from "../responsive";
 import { addToCart, removeCartItem } from "../actions/cartActions";
 
 import Newsletter from "../components/Newsletter";
+import { currencyFormatter } from "../utils/utils.js";
 
 const Container = styled.div``;
 
@@ -29,7 +30,7 @@ const Top = styled.div`
   ${mobile({ padding: "10px 0" })}
 `;
 
-const Bottom = styled.div`
+const ProductList = styled.div`
   display: flex;
   justify-content: space-between;
 
@@ -63,17 +64,23 @@ const Details = styled.div`
   justify-content: space-around;
 `;
 
-const ProductName = styled.span``;
+const ProductName = styled.span`
+  color: #000;
+  font-weight: 500;
+`;
 
 const ProductCountInStock = styled.span``;
 
 const RemoveProduct = styled.p`
   cursor: pointer;
   color: #006aff;
+  &:hover {
+    color: #4a95ff;
+  }
 `;
 
 const Hr = styled.hr`
-  background-color: #eeee;
+  background-color: #e0e0e0;
   border: none;
   height: 1px;
 `;
@@ -94,7 +101,7 @@ const PriceDetail = styled.div`
 `;
 
 const ProductPrice = styled.span`
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 200;
 `;
 const Products = styled.span`
@@ -145,8 +152,7 @@ const Button = styled.button`
 `;
 
 const Select = styled.select`
-  max-width: 6rem;
-  padding: 10px;
+  padding: 10px 15px;
   margin-right: 20px;
   font-weight: 600;
   ${mobile({ margin: "10px 0" })}
@@ -186,7 +192,7 @@ const CartPage = () => {
   return (
     <Container>
       <Wrapper>
-        {/* <Title>Your Bag</Title> */}
+        <Title>Your Bag</Title>
         <Top></Top>
         {cartItems.length === 0 ? (
           <div className="message-container">
@@ -212,7 +218,7 @@ const CartPage = () => {
             </div>
           </div>
         ) : (
-          <Bottom>
+          <ProductList>
             <Info>
               {cart.cartItems.map((item, index) => (
                 <Product key={index}>
@@ -248,7 +254,9 @@ const CartPage = () => {
                     </Details>
                   </ProductDetail>
                   <PriceDetail>
-                    <ProductPrice>${item.qty * item.price}</ProductPrice>
+                    <ProductPrice>
+                      {currencyFormatter.format(item.qty * item.price)}
+                    </ProductPrice>
                     <RemoveProduct
                       type="button"
                       onClick={() => removeFromCartHandler(item.product)}
@@ -256,19 +264,32 @@ const CartPage = () => {
                       Remove
                     </RemoveProduct>
                   </PriceDetail>
-                  {/* <Hr /> */}
+                  <Hr />
                 </Product>
               ))}
             </Info>
             <Summary>
               <SummaryTitle>Order Summary</SummaryTitle>
               <SummaryItem>
-                <SummaryItemText>Subtotal items</SummaryItemText>
+                <SummaryItemText>
+                  Subtotal items (
+                  {cartItems.reduce((acc, item) => acc + item.qty, 0)})
+                </SummaryItemText>
                 <SummaryItemPrice>
-                  ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
+                  {" "}
+                  {currencyFormatter.format(
+                    cartItems.reduce(
+                      (acc, item) => acc + item.qty * item.price,
+                      0
+                    )
+                  )}
                 </SummaryItemPrice>
                 {/* <SummaryItemPrice>$ {cart.total}</SummaryItemPrice> */}
               </SummaryItem>
+              {/* <SummaryItem>
+                <SummaryItemText>Shipping</SummaryItemText>
+                <SummaryItemPrice>To be calculated</SummaryItemPrice>
+              </SummaryItem> */}
               <SummaryItem>
                 <SummaryItemText>Tax</SummaryItemText>
                 <SummaryItemPrice>To be calculated</SummaryItemPrice>
@@ -278,10 +299,15 @@ const CartPage = () => {
                 <SummaryItemText>Total</SummaryItemText>
                 {/* <SummaryItemPrice>$ {cart.total}</SummaryItemPrice> */}
                 <SummaryItemPrice>
-                  ${" "}
-                  {cartItems
+                  {currencyFormatter.format(
+                    cartItems.reduce(
+                      (acc, item) => acc + item.qty * item.price,
+                      0
+                    )
+                  )}
+                  {/* {cartItems
                     .reduce((acc, item) => acc + item.qty * item.price, 0)
-                    .toFixed(2)}
+                    .toFixed(2)} */}
                 </SummaryItemPrice>
               </SummaryItem>
 
@@ -293,7 +319,7 @@ const CartPage = () => {
                 Place Order
               </Button>
             </Summary>
-          </Bottom>
+          </ProductList>
         )}
       </Wrapper>
     </Container>

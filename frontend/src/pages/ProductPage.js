@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { desktop, mobile } from "../responsive";
 import Loader from "../components/Loader";
 import { listProductsDetails } from "../actions/productActions";
+import { currencyFormatter } from "../utils/utils.js";
 
 const Container = styled.div``;
 
@@ -36,6 +37,9 @@ const InfoContainer = styled.div`
 const Title = styled.h1`
   font-weight: 200;
 `;
+const CountInStock = styled.p`
+  font-weight: 200;
+`;
 
 const Description = styled.p`
   margin: 20px 0;
@@ -43,12 +47,12 @@ const Description = styled.p`
 
 const Price = styled.span`
   font-weight: 200;
-  font-size: 40px;
+  font-size: 1.5rem;
 `;
 
 const FilterContainer = styled.div`
-  width: 50%;
-  margin: 30px 0;
+  /* width: 50%; */
+  margin: 10px 0;
   display: flex;
   justify-content: space-between;
   /* align-items: center; */
@@ -61,27 +65,10 @@ const Filter = styled.div`
   // margin: 10px;
 `;
 
-const FilterTitle = styled.span`
-  font-size: 20px;
-  font-weight: 200;
-  /* margin-right: 10px; */
-`;
-
-const FilterColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.color};
-  margin: 0 5px;
-  cursor: pointer;
-`;
-
 const FilterSize = styled.select`
-  padding: 5px;
-  margin-left: 10px;
+  padding: 5px 20px;
+  /* margin-left: 10px; */
 `;
-
-const FilterSizeOption = styled.option``;
 
 const AddContainer = styled.div`
   width: 50%;
@@ -92,38 +79,36 @@ const AddContainer = styled.div`
   ${mobile({ width: "100%" })}
 `;
 
-const AmountContainer = styled.div`
-  display: flex;
-  align-items: center;
-  font-weight: 700;
-`;
-
-const Amount = styled.span`
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  border: 1px solid #333;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 5px;
-`;
-
 const Button = styled.button`
-  padding: 15px;
-  border: 2px solid #333;
-  background-color: #fff;
-  cursor: pointer;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px 0;
+  /* background-color: #333; */
+  background-color: #005ad9;
+  color: #fff;
   font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 
   &:hover {
-    background-color: #333;
-    color: #fff;
-    transition: 60ms ease-in-out;
+    background-color: #05c;
   }
 
-  ${mobile({ padding: "10px 20px" })}
+  &:disabled {
+    background-color: #c5cbd5;
+    color: #55555a;
+    cursor: not-allowed;
+  }
 `;
+
+const ReviewsContainer = styled.div`
+  width: 100%;
+  display: flex;
+  /* align-self: flex-start;
+  justify-content: center; */
+`;
+const ProductCountInStock = styled.span``;
 
 const ProductPage = () => {
   const dispatch = useDispatch();
@@ -168,21 +153,18 @@ const ProductPage = () => {
           <InfoContainer>
             <Title>{product.name}</Title>
             <Description>{product.description}</Description>
-            <Price>$ {product.price}</Price>
+            <ProductCountInStock>
+              {product.countInStock > 0 ? (
+                <p style={{ color: "#00B23B" }}> In stock</p>
+              ) : (
+                <p style={{ color: "red" }}>Sold Out</p>
+              )}
+            </ProductCountInStock>
+            <CountInStock></CountInStock>
+            <Price> {currencyFormatter.format(product.price)}</Price>
             <FilterContainer>
-              <Rating
-                value={product.rating}
-                text={`${product.numReviews} reviews`}
-              />
-            </FilterContainer>
-
-            <AddContainer>
-              <AmountContainer>
-                Status: {product.countInStock > 0 ? "In Stock" : "Outof Stock"}
-              </AmountContainer>
               {product.countInStock > 0 && (
                 <Filter>
-                  <FilterTitle>Qty</FilterTitle>
                   <FilterSize
                     as="select"
                     value={qty}
@@ -198,10 +180,18 @@ const ProductPage = () => {
                   </FilterSize>
                 </Filter>
               )}
-
+            </FilterContainer>
+            <ReviewsContainer>
+              <Rating
+                value={product.rating}
+                text={`${product.numReviews} reviews`}
+              />
+            </ReviewsContainer>
+            <AddContainer>
               <Button
                 onClick={addToCartHandler}
                 disabled={product.countInStock === 0}
+                color
               >
                 ADD TO CART
               </Button>
