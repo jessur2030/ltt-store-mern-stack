@@ -4,14 +4,14 @@ import {
   registerUser,
   getUserProfile,
   updateUserProfile,
+  getUsers,
 } from "../controllers/userController.js";
-import { protect } from "../middleware/authMiddleware.js";
+import { protect, admin } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
-////@desc POST register user
-//@route POST  /api/users
-//@access Public
-router.route("/").post(registerUser);
+////@desc POST register user //@route POST  /api/users //@access Public
+////@desc GET  all user admin only //@route GET  /api/users //@access PRIVATE
+router.route("/").post(registerUser).get(protect, admin, getUsers);
 
 //@desc POST login user
 //@route POST  /api/users/login

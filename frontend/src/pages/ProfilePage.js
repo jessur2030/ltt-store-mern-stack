@@ -217,17 +217,17 @@ const ProfilePage = () => {
                         <tr key={order._id}>
                           <td>{order._id}</td>
                           <td> {order.createdAt.substring(0, 10)}</td>
-                          <td class="amount">
+                          <td className="amount">
                             {currencyFormatter.format(order.totalPrice)}
                           </td>
 
                           <td>
                             {order.isPaid ? (
-                              <p class="status status-paid">
+                              <p className="status status-paid">
                                 {order.paidAt.substring(0, 10)}
                               </p>
                             ) : (
-                              <p class="status status-unpaid">Not Paid</p>
+                              <p className="status status-unpaid">Not Paid</p>
                             )}
                           </td>
 
