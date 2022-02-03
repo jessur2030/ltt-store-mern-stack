@@ -36,4 +36,80 @@ const getProductById = asyncHandler(async (req, res) => {
   }
 });
 
-export { getProducts, getProductById };
+//@desc Delete a product by Id
+//@route DELETE /api/products/:id
+//@access PRIVATE/Admin
+const deleteProduct = asyncHandler(async (req, res) => {
+  //find a product by Id
+  const product = await Product.findById(req.params.id);
+
+  if (product) {
+    await product.remove();
+    res.json({ message: `Product removed` });
+  } else {
+    res.status(404);
+    throw new Error(`Product not found`);
+  }
+});
+
+//@desc Create a product
+//@route POST /api/products
+//@access PRIVATE/Admin
+const createProduct = asyncHandler(async (req, res) => {
+  //instantiate a new product
+  const product = new Product({
+    //sample data
+    name: "Sample name",
+    price: 0,
+    user: req.user._id,
+    image: "/images/sample.jpg",
+    brand: "Sample brand",
+    category: "Sample category",
+    countInStock: 0,
+    numReviews: 0,
+    description: " Sample description",
+  });
+
+  //save product to our database
+  const createdProduct = await product.save();
+  res.status(201).json(createdProduct);
+});
+
+//@desc Edit a product
+//@route PUT /api/products/:id
+//@access PRIVATE/Admin
+
+const updateProduct = asyncHandler(async (req, res) => {
+  //get product from the body
+  const { name, price, image, brand, description, category, countInStock } =
+    req.body;
+  //find product by Id
+  const product = await Product.findById(req.params.id);
+
+  //if there is a product
+  if (product) {
+    product.name = name;
+    product.price = price;
+    product.description = description;
+    product.image = image;
+    product.brand = brand;
+    product.category = category;
+    product.countInStock = countInStock;
+
+    const updatedProduct = await product.save();
+    res.status(200).json(updatedProduct);
+  }
+  //if there is not product found
+  else {
+    res.status(404);
+    throw new Error({ message: `Product not found` });
+  }
+});
+
+export {
+  getProducts,
+  getProductById,
+  deleteProduct,
+  createProduct,
+  updateProduct,
+};

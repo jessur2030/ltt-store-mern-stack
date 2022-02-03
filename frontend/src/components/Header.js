@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
 import logo from "./logo-ltt.png";
 import "./Header.css";
 import { logout } from "../actions/userActions.js";
 import Badge from "@mui/material/Badge";
+import styled from "styled-components";
 import {
   UilSearch,
   UilUserCircle,
@@ -39,10 +40,28 @@ const brand = {
   width: "30px",
 };
 
+// const Button = styled.button`
+//   width: 100%;
+//   padding: 10px;
+//   margin-bottom: 20px 0;
+//   /* background-color: #333; */
+//   background-color: #005ad9;
+//   color: #fff;
+//   font-weight: 600;
+//   border: none;
+//   border-radius: 5px;
+
+//   cursor: pointer;
+//   &:hover {
+//     background-color: #05c;
+//   }
+// `;
+// e8e8e8
+
 const Header = () => {
+  const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
   const quantity = cart.cartItems.reduce((curr, item) => item.qty + curr, 0);
-  console.log(quantity);
   const [click, setClick] = useState(true);
 
   const dispatch = useDispatch();
@@ -57,13 +76,14 @@ const Header = () => {
   //logout handler
   const logoutHandler = () => {
     dispatch(logout());
+    navigate("/");
   };
   return (
     // <header id="header">
     <>
       <nav className="navbar">
-        {/* //BUG: TODO: fix navbar style issus */}
-        <div className="navbar-container">
+        {/* //BUG: TODO: fix navbar style issus & state */}
+        <div className="navbar-container container">
           <Link className="navbar-brand" to="/">
             <img src={logo} style={brand} alt="LTT logo" />
           </Link>
@@ -91,26 +111,46 @@ const Header = () => {
           </ul>
 
           <ul className="navbar-nav-right nav-link">
-            <li>
+            {/* <li>
               <UilSearch />
-            </li>
-            <div className="dropdown">
-              <li>
-                <UilUserCircle />
-                <div
-                  className="dropdown-content"
-                  id="username"
-                  // title={userInfo.name}
-                >
-                  <Link to="/profile">Profile</Link>
-                  {userInfo ? (
+            </li> */}
+
+            {userInfo ? (
+              <div className="dropdown">
+                <li>
+                  {`Hi, ${userInfo.name}`}
+                  <div
+                    className="dropdown-content"
+                    id="username"
+                    // title={userInfo.name}
+                  >
+                    <Link to="/profile">Profile</Link>
                     <span onClick={logoutHandler}>Logout</span>
-                  ) : (
-                    <Link to="/login">Login</Link>
-                  )}
-                </div>
+                  </div>
+                </li>
+              </div>
+            ) : (
+              <li>
+                <Link to="/login"> Sing in {/* <UilUserCircle /> */}</Link>
               </li>
-            </div>
+            )}
+
+            {userInfo && userInfo.isAdmin && (
+              <div className="dropdown">
+                <li>
+                  Admin
+                  <div
+                    className="dropdown-content"
+                    id="username"
+                    // title={userInfo.name}
+                  >
+                    <Link to="/admin/userlist">Users</Link>
+                    <Link to="/admin/productlist">Products</Link>
+                    <Link to="/admin/orderlist">Orders</Link>
+                  </div>
+                </li>
+              </div>
+            )}
             <li>
               <Link to="/cart">
                 <Badge badgeContent={quantity} color="primary">

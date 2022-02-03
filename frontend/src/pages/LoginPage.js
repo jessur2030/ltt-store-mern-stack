@@ -68,7 +68,7 @@ const LoginPage = () => {
             <input
               type="email"
               id="email"
-              placeholder="Enter email"
+              placeholder="Email address"
               ref={userRef}
               autoComplete="off"
               value={email}
@@ -79,7 +79,7 @@ const LoginPage = () => {
             <input
               type="password"
               id="password"
-              placeholder="Enter password"
+              placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               required

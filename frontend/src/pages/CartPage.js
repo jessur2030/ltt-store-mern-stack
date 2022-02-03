@@ -104,10 +104,10 @@ const ProductPrice = styled.span`
   font-size: 1.5rem;
   font-weight: 200;
 `;
-const Products = styled.span`
-  font-size: 1rem;
-  font-weight: 200;
-`;
+// const Products = styled.span`
+//   font-size: 1rem;
+//   font-weight: 200;
+// `;
 
 const Summary = styled.div`
   flex: 1;
@@ -152,11 +152,11 @@ const Button = styled.button`
 `;
 
 const Select = styled.select`
-  padding: 10px 15px;
-  margin-right: 20px;
+  padding: 5px 20px;
+  width: 130px;
   font-weight: 600;
-  ${mobile({ margin: "10px 0" })}
-  cursor:pointer;
+  /* ${mobile({ margin: "10px 0" })} */
+  cursor: pointer;
 `;
 const Option = styled.option`
   font-weight: 600;

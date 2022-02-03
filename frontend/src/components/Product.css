@@ -26,10 +26,12 @@ a:not([class]) {
 
 .card {
   aspect-ratio: 1 / 1.5;
-  border: 3px solid hotpink;
+  /* border: 3px solid hotpink; */
 }
 
 .card__content {
+  min-height: 125px;
+
   background: white;
   align-self: end;
   margin: 0.5rem 0.5rem 2rem;

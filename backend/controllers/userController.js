@@ -124,4 +124,74 @@ const getUsers = asyncHandler(async (req, res) => {
   res.json(users);
 });
 
-export { authUser, registerUser, getUserProfile, updateUserProfile, getUsers };
+//@desc DELETE a user
+//@route DELETE /api/users/:id
+//@access PRIVATE/Admin
+const deleteUser = asyncHandler(async (req, res) => {
+  //get all users
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    await user.remove();
+    res.json({ message: `User removed` });
+  } else {
+    res.status(404);
+    throw new Error(`User not found`);
+  }
+});
+
+//@desc Get user by Id
+//@route GET /api/users:id
+//@access PRIVATE/Admin
+const getUserById = asyncHandler(async (req, res) => {
+  //get user by Id
+  const user = await User.findById(req.params.id).select("-password");
+
+  //check if user exits
+  if (user) {
+    res.json(user);
+  } else {
+    //if user is not found
+    res.status(404);
+    throw new Error(`User not found`);
+  }
+});
+
+//@desc update user by id
+//@route PUT /api/users/:id
+//@access PRIVATE/Admin
+const updateUser = asyncHandler(async (req, res) => {
+  //find user by id
+  const user = await User.findById(req.params.id);
+
+  //check if user exits
+  if (user) {
+    //if user if found
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    //allows th admin user to change admin field
+    user.isAdmin = req.body.isAdmin;
+
+    const updatedUser = await user.save();
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User Not Found");
+  }
+});
+
+export {
+  authUser,
+  registerUser,
+  getUserProfile,
+  updateUserProfile,
+  getUsers,
+  deleteUser,
+  getUserById,
+  updateUser,
+};

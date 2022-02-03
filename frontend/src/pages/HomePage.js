@@ -4,6 +4,7 @@ import Product from "../components/Product";
 import "./HomePage.css";
 import { listProducts } from "../actions/productActions";
 import Loader from "../components/Loader";
+import Message from "../components/Message.js";
 // import products from "../products";
 // import Slider from "../components/Slider";
 
@@ -33,7 +34,8 @@ const HomePage = () => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <h4>{error}</h4>
+        // <h4>{error}</h4>
+        <Message text={error} />
       ) : (
         <div className="cards">
           {products.map((product) => (

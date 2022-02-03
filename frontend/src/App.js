@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Slider from "./components/Slider";
 import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
 import CartPage from "./pages/CartPage";
@@ -13,15 +12,20 @@ import ShippingPage from "./pages/ShippingPage";
 import PaymentPage from "./pages/PaymentPage";
 import PlaceOrder from "./pages/PlaceOrder";
 import OrderPage from "./pages/OrderPage";
+import UserListPage from "./pages/UserListPage";
+import UserEditPage from "./pages/UserEditPage";
+import ProductListPage from "./pages/ProductListPage";
+
 const App = () => {
   return (
     <Router>
       <Header />
-      {/* <Slider /> */}
-
-      <main className=" ">
+      <main className="container">
         {/* <section className="section grid"> */}
         <Routes>
+          <Route path="/admin/productlist" element={<ProductListPage />} />
+          <Route path="/admin/user/:id/edit" element={<UserEditPage />} />
+          <Route path="/admin/userlist" element={<UserListPage />} />
           <Route path="/order/:id" element={<OrderPage />} />
           <Route path="/placeorder" element={<PlaceOrder />} />
           <Route path="/payment" element={<PaymentPage />} />

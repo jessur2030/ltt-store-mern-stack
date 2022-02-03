@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Rating from "../components/Rating";
 // import products from "../products";
 import styled from "styled-components";
-import { desktop, mobile } from "../responsive";
+import { desktop, mobile, tablet } from "../responsive";
 import Loader from "../components/Loader";
 import { listProductsDetails } from "../actions/productActions";
 import { currencyFormatter } from "../utils/utils.js";
@@ -14,24 +14,33 @@ const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;
+  justify-content: center;
+  align-items: center;
   ${mobile({ padding: "10px", flexDirection: "column" })}
 `;
 
 const ImageContainer = styled.div`
   flex: 1;
+  max-width: 780px;
 `;
 
 const Image = styled.img`
   width: 100%;
   height: 90vh;
   object-fit: cover;
-  ${mobile({ height: "50vh" })}
+  ${mobile({ height: "50vh" })}/* ${desktop({
+    objectFit: "contain",
+    height: "50vh",
+    background: "Red",
+  })} */
 `;
 
 const InfoContainer = styled.div`
   flex: 1;
   padding: 0 50px;
+
   ${mobile({ padding: "10px" })}
+  ${desktop({ maxWidth: "600px" })}
 `;
 
 const Title = styled.h1`
@@ -67,7 +76,8 @@ const Filter = styled.div`
 
 const FilterSize = styled.select`
   padding: 5px 20px;
-  /* margin-left: 10px; */
+  width: 120px;
+  cursor: pointer;
 `;
 
 const AddContainer = styled.div`
@@ -115,7 +125,6 @@ const ProductPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [qty, setQty] = useState(1);
-  // console.log(id);
   //read from state
   const productDetails = useSelector((state) => state.productDetails);
 

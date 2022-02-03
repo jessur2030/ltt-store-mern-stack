@@ -44,7 +44,7 @@ const Info = styled.div`
 
 const Product = styled.div`
   display: flex;
-  background-color: coral;
+  /* background-color: coral; */
   justify-content: space-between;
   margin-top: 20px;
   /* margin-right: 20px; */
@@ -223,19 +223,23 @@ const ProfilePage = () => {
 
                           <td>
                             {order.isPaid ? (
-                              <p className="status status-paid">
+                              <p className="status status-success">
                                 {order.paidAt.substring(0, 10)}
                               </p>
                             ) : (
-                              <p className="status status-unpaid">Not Paid</p>
+                              <p className="status status-danger">Not Paid</p>
                             )}
                           </td>
 
                           <td>
                             {" "}
-                            {order.isDelivered
-                              ? order.deliveredAt.substring(0, 10)
-                              : `Not delivered`}
+                            {order.isDelivered ? (
+                              order.deliveredAt.substring(0, 10)
+                            ) : (
+                              <p className="status status-danger">
+                                Not delivered
+                              </p>
+                            )}
                           </td>
                           <td>
                             {" "}
