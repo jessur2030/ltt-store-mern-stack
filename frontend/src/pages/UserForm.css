@@ -74,6 +74,8 @@ input[type="address"],
 input[type="city"],
 input[type="postalCode"],
 input[type="country"],
+input[type="text"],
+input[type="number"],
 textarea {
   width: 100%;
   font-size: 1rem;

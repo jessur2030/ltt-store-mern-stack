@@ -23,20 +23,22 @@ const TopContainer = styled.div`
   justify-content: space-between;
 `;
 
-const Title = styled.h1`
-  font-weight: 200;
+const Title = styled.p`
+  font-size: 1.85rem;
+  font-weight: 500;
+  ${mobile({ fontSize: "1.70rem" })}
 `;
-
 const TableContainer = styled.div`
   display: flex;
+  overflow-x: auto;
   /* background-color: coral; */
   /* justify-content: space-between; */
   margin-top: 20px;
   /* margin-right: 20px; */
   /* box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.15); */
 
-  ${tablet({ flexDirection: "column", overflowX: "auto" })}
-  ${mobile({ flexDirection: "column", overflowX: "auto" })}
+  /* ${tablet({ flexDirection: "column" })}
+  ${mobile({ flexDirection: "column" })} */
 `;
 
 const RemoveProduct = styled.p`
@@ -65,6 +67,7 @@ const Button = styled.button`
   &:hover {
     background-color: #05c;
   }
+  ${mobile({ fontSize: ".75rem" })}
 `;
 // e8e8e8
 

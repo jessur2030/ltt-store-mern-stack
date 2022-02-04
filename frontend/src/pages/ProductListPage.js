@@ -6,8 +6,14 @@ import { mobile, tablet } from "../responsive";
 import Loader from "../components/Loader.js";
 import AddIcon from "@mui/icons-material/Add";
 // import { deleteUser } from "../actions/userActions.js";
-import { listProducts, deleteProduct } from "../actions/productActions.js";
+import {
+  listProducts,
+  deleteProduct,
+  createProduct,
+} from "../actions/productActions.js";
 import { currencyFormatter } from "../utils/utils";
+import { PRODUCT_CREATE_RESET } from "../constants/productConstants";
+import Message from "../components/Message";
 
 const Container = styled.div``;
 
@@ -23,20 +29,23 @@ const TopContainer = styled.div`
   justify-content: space-between;
 `;
 
-const Title = styled.h1`
-  font-weight: 200;
+const Title = styled.p`
+  font-size: 1.85rem;
+  font-weight: 500;
+  ${mobile({ fontSize: "1.70rem" })}
 `;
 
 const TableContainer = styled.div`
   display: flex;
+  overflow-x: auto;
   /* background-color: coral; */
   /* justify-content: space-between; */
   margin-top: 20px;
   /* margin-right: 20px; */
   /* box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.15); */
 
-  ${tablet({ flexDirection: "column", overflowX: "auto" })}
-  ${mobile({ flexDirection: "column", overflowX: "auto" })}
+  /* ${tablet({ flexDirection: "column" })}
+  ${mobile({ flexDirection: "column" })} */
 `;
 
 const RemoveProduct = styled.p`
@@ -65,6 +74,7 @@ const Button = styled.button`
   &:hover {
     background-color: #05c;
   }
+  ${mobile({ fontSize: ".75rem" })}
 `;
 // e8e8e8
 
@@ -82,15 +92,39 @@ const ProductListPage = () => {
 
   const productDelete = useSelector((state) => state.productDelete);
   //get userInfo from state
-  const { error: errorDelete, success: successDelete } = productDelete;
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = productDelete;
+
+  const productCreate = useSelector((state) => state.productCreate);
+  const {
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+    product: createdProduct,
+  } = productCreate;
 
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(listProducts());
-    } else {
+    //dispatch reset
+    dispatch({ type: PRODUCT_CREATE_RESET });
+    if (!userInfo.isAdmin) {
       navigate(`/login`);
     }
-  }, [dispatch, userInfo, navigate, successDelete]);
+    if (successCreate) {
+      navigate(`/admin/product/${createdProduct._id}/edit`);
+    } else {
+      dispatch(listProducts());
+    }
+  }, [
+    dispatch,
+    userInfo,
+    navigate,
+    successDelete,
+    successCreate,
+    createdProduct,
+  ]);
 
   //delete handler function
   const deleteHandler = (id) => {
@@ -102,8 +136,9 @@ const ProductListPage = () => {
     }
   };
 
-  const createProductHandler = (product) => {
-    //Create product
+  const createProductHandler = () => {
+    // dispatch Create product action
+    dispatch(createProduct());
   };
   return (
     <Container>
@@ -115,6 +150,10 @@ const ProductListPage = () => {
             <AddIcon /> Create product
           </Button>
         </TopContainer>
+        {loadingDelete && <Loader />}
+        {errorDelete && <Message text={errorDelete} />}
+        {loadingCreate && <Loader />}
+        {errorCreate && <Message text={errorCreate} />}
         <TableContainer>
           {loading ? (
             <Loader />
