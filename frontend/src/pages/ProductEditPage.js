@@ -159,7 +159,7 @@ const ProductEditPage = () => {
                 />
                 <label htmlFor="description">Description</label>
                 <textarea
-                  rows="4"
+                  rows="6"
                   cols="50"
                   id="description"
                   autoComplete="off"

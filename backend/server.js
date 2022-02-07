@@ -1,3 +1,4 @@
+import path from "path";
 import express from "express";
 import dotenv from "dotenv";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
@@ -6,6 +7,7 @@ import connectDB from "./config/db.js";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
 
 //calls dotenv
 dotenv.config();
@@ -37,10 +39,18 @@ app.use("/api/users", userRoutes);
 //mount /api/order
 app.use("/api/orders", orderRoutes);
 
+//mount /api/upload
+app.use("/api/upload", uploadRoutes);
+
 //config route for getting our PAYPAL_CLIENT_ID
 app.use("/api/config/paypal", (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 );
+
+//
+const __dirname = path.resolve();
+//make uploads folder a static folder
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 //fall back for 404 errors : for something that is not a valid route
 app.use(notFound);
