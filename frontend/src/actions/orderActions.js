@@ -16,6 +16,9 @@ import {
   ORDER_LIST_REQUEST,
   ORDER_LIST_SUCCESS,
   ORDER_LIST_FAIL,
+  ORDER_DELIVER_REQUEST,
+  ORDER_DELIVER_SUCCESS,
+  ORDER_DELIVER_FAIL,
 } from "../constants/orderContants";
 
 //orderCreate Action function
@@ -197,6 +200,45 @@ export const listOrders = () => async (dispatch, getState) => {
     //dispatch possible error
     dispatch({
       type: ORDER_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+//order deliver action
+export const deliverOrder = (order) => async (dispatch, getState) => {
+  try {
+    //dispatch our request
+    dispatch({ type: ORDER_DELIVER_REQUEST });
+
+    //get token from the state
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    //send our headers
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    //fetch /api/orders/:id/deliver
+    const { data } = await axios.put(
+      `/api/orders/${order._id}/deliver`,
+      {},
+      config
+    );
+
+    //dispatch success data
+    dispatch({ type: ORDER_DELIVER_SUCCESS, payload: data });
+  } catch (error) {
+    //dispatch possible error
+    dispatch({
+      type: ORDER_DETAILS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

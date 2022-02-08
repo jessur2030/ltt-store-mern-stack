@@ -7,9 +7,17 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import Newsletter from "../components/Newsletter";
 import Loader from "../components/Loader";
-import { getOrderDetails, payOrder } from "../actions/orderActions.js";
+import {
+  getOrderDetails,
+  payOrder,
+  deliverOrder,
+} from "../actions/orderActions.js";
 import { currencyFormatter } from "../utils/utils";
-import { ORDER_PAY_RESET } from "../constants/orderContants";
+import {
+  ORDER_PAY_RESET,
+  ORDER_DELIVER_RESET,
+} from "../constants/orderContants";
+import Message from "../components/Message.js";
 
 const Container = styled.div``;
 
@@ -131,15 +139,25 @@ const SummaryItemText = styled.span``;
 const SummaryItemPrice = styled.span``;
 
 const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
+  /* width: 100%; */
   padding: 10px;
-  margin-bottom: 20px 0;
-  background-color: #333;
+  /* margin-bottom: 20px 0; */
+  /* background-color: #333; */
+  background-color: #005ad9;
   color: #fff;
   font-weight: 600;
   border: none;
+  border-radius: 5px;
 
   cursor: pointer;
+  &:hover {
+    background-color: #05c;
+  }
+  ${mobile({ fontSize: ".75rem" })}
 `;
 
 const OrderPage = () => {
@@ -156,12 +174,12 @@ const OrderPage = () => {
   //   day: "numeric",
   // };
 
-  const options = {
-    weekday: "short",
-    year: "numeric",
-    month: "2-digit",
-    day: "numeric",
-  };
+  // const options = {
+  //   weekday: "short",
+  //   year: "numeric",
+  //   month: "2-digit",
+  //   day: "numeric",
+  // };
 
   //state form orderDetails
   const orderDetails = useSelector((state) => state.orderDetails);
@@ -170,7 +188,18 @@ const OrderPage = () => {
   //state form orderPay
   const orderPay = useSelector((state) => state.orderPay);
   const { success: successPay, loading: loadingPay } = orderPay;
-  console.log(successPay);
+
+  //state from user login
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  //state form orderPay
+  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const {
+    success: successDeliver,
+    loading: loadingDeliver,
+    error: errorDeliver,
+  } = orderDeliver;
 
   if (!loading) {
     order.itemsPrice = currencyFormatter.format(
@@ -203,8 +232,10 @@ const OrderPage = () => {
     };
     //check for the order and also make sure that the order ID matches the ID in the URL
     // if (!order || order._id !== id) {
-    if (!order || successPay) {
+    if (!order || successPay || successDeliver) {
       dispatch({ type: ORDER_PAY_RESET });
+      dispatch({ type: ORDER_DELIVER_RESET });
+
       //dispatch order details by our url id
       dispatch(getOrderDetails(orderId));
     }
@@ -218,13 +249,19 @@ const OrderPage = () => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, order, orderId, successPay]);
+  }, [dispatch, order, orderId, successPay, successDeliver]);
 
   //successPaymentHandler function
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);
     //
     dispatch(payOrder(orderId, paymentResult));
+  };
+
+  //deliverHandler
+  const deliverHandler = () => {
+    //
+    dispatch(deliverOrder(order));
   };
 
   return loading ? (
@@ -235,7 +272,7 @@ const OrderPage = () => {
     <>
       <Container>
         <Wrapper>
-          <h1>Order {order._id}</h1>
+          <h2>Order {order._id}</h2>
           <Top>
             <ShippingDetails>
               <h2>Shipping</h2>
@@ -256,10 +293,27 @@ const OrderPage = () => {
             </ShippingDetails>
           </Top>
           {order.isDelivered ? (
-            <h1 className="success">Order Delivered on {order.deliveredAt}</h1>
+            <h2 className="success" style={{ padding: "5px" }}>
+              Order Delivered on {order.deliveredAt.substring(0, 10)}
+            </h2>
+          ) : order.isPaid ? (
+            <>
+              <h2
+                className="status-alert "
+                style={{ padding: "5px", marginBottom: "10px" }}
+              >
+                Your order is confirmed.
+              </h2>
+              <p>
+                <strong>Estimated delivery: </strong> 5 to 7 bushiness days
+              </p>
+            </>
           ) : (
-            <h1 className="errmsg">Not delivered</h1>
+            <h2 style={{ padding: "5px" }} className="errmsg">
+              Order not confirmed yet.
+            </h2>
           )}
+
           <Bottom>
             <Info>
               {order.orderItems.map((item, index) => (
@@ -365,6 +419,13 @@ const OrderPage = () => {
                     />
                   )}
                 </>
+              )}
+              {loadingDeliver && <Loader />}
+              {errorDeliver && <Message text={errorDeliver}></Message>}
+              {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                <Button type="button" onClick={deliverHandler}>
+                  Mark as delivered
+                </Button>
               )}
             </Summary>
           </Bottom>

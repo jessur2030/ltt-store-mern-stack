@@ -204,6 +204,11 @@ td {
   color: #a68b00;
 }
 
+.status-alert {
+  background-color: #cce5ff;
+  color: #0064b8;
+}
+
 .status-success {
   background-color: #c8e6c9;
   color: #388e3c;
