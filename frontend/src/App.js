@@ -16,6 +16,7 @@ import UserListPage from "./pages/UserListPage";
 import UserEditPage from "./pages/UserEditPage";
 import ProductListPage from "./pages/ProductListPage";
 import ProductEditPage from "./pages/ProductEditPage";
+import OrderListPage from "./pages/OrderListPage";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/admin/productlist" element={<ProductListPage />} />
           <Route path="/admin/user/:id/edit" element={<UserEditPage />} />
           <Route path="/admin/userlist" element={<UserListPage />} />
+          <Route path="/admin/orderlist" element={<OrderListPage />} />
           <Route path="/order/:id" element={<OrderPage />} />
           <Route path="/placeorder" element={<PlaceOrder />} />
           <Route path="/payment" element={<PaymentPage />} />
