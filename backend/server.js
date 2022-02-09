@@ -1,6 +1,7 @@
 import path from "path";
 import express from "express";
 import dotenv from "dotenv";
+import morgan from "morgan";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import connectDB from "./config/db.js";
 //brings productRoutes.js
@@ -16,6 +17,11 @@ dotenv.config();
 connectDB();
 
 const app = express();
+
+//use morgan for dev mode only
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
 
 //middleware example:
 // app.use((req, res, next) => {

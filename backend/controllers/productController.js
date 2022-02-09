@@ -78,7 +78,6 @@ const createProduct = asyncHandler(async (req, res) => {
 //@desc Edit a product
 //@route PUT /api/products/:id
 //@access PRIVATE/Admin
-
 const updateProduct = asyncHandler(async (req, res) => {
   //get product from the body
   const { name, price, image, brand, description, category, countInStock } =
@@ -106,10 +105,59 @@ const updateProduct = asyncHandler(async (req, res) => {
   }
 });
 
+//@desc Create a product review
+//@route POST /api/products/:id/reviews
+//@access PRIVATE
+const createProductReview = asyncHandler(async (req, res) => {
+  //get the rating and the comment from the body
+  const { rating, comment } = req.body;
+
+  const product = await Product.findById(req.params.id);
+
+  //check if product exits
+  if (product) {
+    //check if user has already submitted a review
+    const alreadyReviewed = product.reviews.find(
+      (r) => r.user.toString() === req.user._id.toString()
+    );
+
+    if (alreadyReviewed) {
+      res.status(400);
+      throw new Error("Product already reviewed");
+    }
+    //if they didn't already add a review
+    //construct a review object
+    const review = {
+      name: req.user.name,
+      rating: Number(rating),
+      comment,
+      user: req.user._id,
+    };
+
+    //
+    product.reviews.push(review);
+    //
+    product.numReviews = product.reviews.length;
+    //updates the total rating
+    //adds all the rating / by the total length of reviews
+    product.rating =
+      product.reviews.reduce((acc, item) => item.rating + acc, 0) /
+      product.reviews.length;
+
+    //save to our database
+    await product.save();
+    res.status(201).json({ message: "Review added" });
+  } else {
+    res.status(404);
+    throw new Error("Product not found");
+  }
+});
+
 export {
   getProducts,
   getProductById,
   deleteProduct,
   createProduct,
   updateProduct,
+  createProductReview,
 };

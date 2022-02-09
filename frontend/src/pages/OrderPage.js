@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { PayPalButton } from "react-paypal-button-v2";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { mobile } from "../responsive";
@@ -161,6 +161,7 @@ const Button = styled.button`
 `;
 
 const OrderPage = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id: orderId } = useParams();
   //paypal sdk state
@@ -208,8 +209,11 @@ const OrderPage = () => {
   }
 
   useEffect(() => {
-    //addPayPalScript
+    if (!userInfo) {
+      navigate("/");
+    }
 
+    //addPayPalScript
     const addPayPalScript = async () => {
       //get clientId form our backend endpoint
       const { data: clientId } = await axios.get(`/api/config/paypal`);
@@ -249,7 +253,15 @@ const OrderPage = () => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, order, orderId, successPay, successDeliver]);
+  }, [
+    userInfo,
+    navigate,
+    dispatch,
+    order,
+    orderId,
+    successPay,
+    successDeliver,
+  ]);
 
   //successPaymentHandler function
   const successPaymentHandler = (paymentResult) => {
@@ -422,11 +434,14 @@ const OrderPage = () => {
               )}
               {loadingDeliver && <Loader />}
               {errorDeliver && <Message text={errorDeliver}></Message>}
-              {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
-                <Button type="button" onClick={deliverHandler}>
-                  Mark as delivered
-                </Button>
-              )}
+              {userInfo &&
+                userInfo.isAdmin &&
+                order.isPaid &&
+                !order.isDelivered && (
+                  <Button type="button" onClick={deliverHandler}>
+                    Mark as delivered
+                  </Button>
+                )}
             </Summary>
           </Bottom>
         </Wrapper>
