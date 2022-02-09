@@ -6,8 +6,12 @@ import Rating from "../components/Rating";
 import styled from "styled-components";
 import { desktop, mobile, tablet } from "../responsive";
 import Loader from "../components/Loader";
-import { listProductsDetails } from "../actions/productActions";
+import {
+  listProductsDetails,
+  createProductReview,
+} from "../actions/productActions";
 import { currencyFormatter } from "../utils/utils.js";
+import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants.js";
 
 const Container = styled.div``;
 
@@ -16,6 +20,14 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  ${mobile({ padding: "10px", flexDirection: "column" })}
+`;
+const WrapperReviews = styled.div`
+  background-color: lightblue;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
   ${mobile({ padding: "10px", flexDirection: "column" })}
 `;
 
@@ -90,7 +102,7 @@ const AddContainer = styled.div`
 `;
 
 const Button = styled.button`
-  width: 100%;
+  max-width: 30vh;
   padding: 10px;
   margin-bottom: 20px 0;
   /* background-color: #333; */
@@ -125,19 +137,45 @@ const ProductPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [qty, setQty] = useState(1);
-  //read from state
-  const productDetails = useSelector((state) => state.productDetails);
+  //reviews
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
 
+  //read from productDetails state
+  const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
+
+  //read from userLogin state
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  //read from productCreateReview  state
+  const productCreateReview = useSelector((state) => state.productCreateReview);
+  const {
+    loading: loadingCreateReview,
+    error: errorCreateReview,
+    success: successCreateReview,
+  } = productCreateReview;
+
   useEffect(() => {
+    if (successCreateReview) {
+      alert("Review submitted");
+      setRating(0);
+      setComment("");
+      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
+    }
     dispatch(listProductsDetails(id));
-  }, [dispatch, id]);
+  }, [dispatch, id, successCreateReview]);
   // const product = products.find((p) => p._id === id);
 
   const addToCartHandler = () => {
     //navigate
-    //navigate(`/cart/${id}?qty=${qty}`);
     navigate(`/cart/${id}?qty=${qty}`);
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(createProductReview(id, { rating, comment }));
   };
   return (
     <Container>
@@ -155,58 +193,143 @@ const ProductPage = () => {
           error
         </div>
       ) : (
-        <Wrapper>
-          <ImageContainer>
-            <Image src={product.image} />
-          </ImageContainer>
-          <InfoContainer>
-            <Title>{product.name}</Title>
-            <Description>{product.description}</Description>
-            <ProductCountInStock>
-              {product.countInStock > 0 ? (
-                <p style={{ color: "#00B23B" }}> In stock</p>
-              ) : (
-                <p style={{ color: "red" }}>Sold Out</p>
+        <>
+          <Wrapper>
+            <ImageContainer>
+              <Image src={product.image} />
+            </ImageContainer>
+            <InfoContainer>
+              <Title>{product.name}</Title>
+              <Description>{product.description}</Description>
+              <ProductCountInStock>
+                {product.countInStock > 0 ? (
+                  <p style={{ color: "#00B23B" }}> In stock</p>
+                ) : (
+                  <p style={{ color: "red" }}>Sold Out</p>
+                )}
+              </ProductCountInStock>
+              <CountInStock></CountInStock>
+              <Price> {currencyFormatter.format(product.price)}</Price>
+              <FilterContainer>
+                {product.countInStock > 0 && (
+                  <Filter>
+                    <FilterSize
+                      as="select"
+                      value={qty}
+                      disabled={product.countInStock === 0}
+                      onChange={(e) => setQty(e.target.value)}
+                    >
+                      {[...Array(product.countInStock).keys()].map((x) => (
+                        <option key={x + 1} value={x + 1}>
+                          {" "}
+                          {x + 1}
+                        </option>
+                      ))}
+                    </FilterSize>
+                  </Filter>
+                )}
+              </FilterContainer>
+              <ReviewsContainer>
+                <Rating
+                  value={product.rating}
+                  text={`${product.numReviews} reviews`}
+                />
+              </ReviewsContainer>
+              <AddContainer>
+                <Button
+                  onClick={addToCartHandler}
+                  disabled={product.countInStock === 0}
+                  color
+                >
+                  ADD TO CART
+                </Button>
+              </AddContainer>
+            </InfoContainer>
+          </Wrapper>
+          {/* TODO: Fix BUG: on state */}
+          {/* TODO: Fix styles using styled-components for reviews */}
+          <WrapperReviews>
+            <div>
+              <h2>Reviews</h2>
+            </div>
+
+            <div>
+              {product.reviews.length === 0 && (
+                <h3 style={{ padding: "5px" }} className="status-alert">
+                  No reviews
+                </h3>
               )}
-            </ProductCountInStock>
-            <CountInStock></CountInStock>
-            <Price> {currencyFormatter.format(product.price)}</Price>
-            <FilterContainer>
-              {product.countInStock > 0 && (
-                <Filter>
-                  <FilterSize
-                    as="select"
-                    value={qty}
-                    disabled={product.countInStock === 0}
-                    onChange={(e) => setQty(e.target.value)}
+            </div>
+
+            <div>
+              {product.reviews.map((review) => (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                  }}
+                  key={review._id}
+                >
+                  {console.log(review)}
+                  <strong>{review.name}</strong>
+                  <div
+                  // style={{
+                  //   backgroundColor: "red",
+                  // }}
                   >
-                    {[...Array(product.countInStock).keys()].map((x) => (
-                      <option key={x + 1} value={x + 1}>
-                        {" "}
-                        {x + 1}
-                      </option>
-                    ))}
-                  </FilterSize>
-                </Filter>
-              )}
-            </FilterContainer>
-            <ReviewsContainer>
-              <Rating
-                value={product.rating}
-                text={`${product.numReviews} reviews`}
-              />
-            </ReviewsContainer>
-            <AddContainer>
-              <Button
-                onClick={addToCartHandler}
-                disabled={product.countInStock === 0}
-                color
-              >
-                ADD TO CART
-              </Button>
-            </AddContainer>
-          </InfoContainer>
-        </Wrapper>
+                    <Rating value={review.rating} />
+                  </div>
+                  <p>{review.createdAt.substring(0, 10)}</p>
+                  <p>{review.comment}</p>
+                </div>
+              ))}
+
+              <div style={{ marginTop: "30px" }}>
+                <h2>Write a review</h2>
+                {errorCreateReview && (
+                  <h3 className="errmsg">{errorCreateReview}</h3>
+                )}
+                <div>
+                  {userInfo ? (
+                    <form onSubmit={submitHandler}>
+                      <label htmlFor="rating">Rating</label>
+                      <select
+                        style={{ maxWidth: "20vh" }}
+                        name="rating"
+                        id="rating"
+                        value={rating}
+                        onChange={(e) => setRating(e.target.value)}
+                      >
+                        <option value="">Select...</option>
+                        <option value="1">1 - Poor</option>
+                        <option value="2">2 - Fair</option>
+                        <option value="3">3 - Good</option>
+                        <option value="4">4 - Very Good</option>
+                        <option value="5">5 - Excellent </option>
+                      </select>
+
+                      <textarea
+                        style={{ maxWidth: "100vh" }}
+                        name="comment"
+                        id="comment"
+                        cols="10"
+                        rows="6"
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                      ></textarea>
+                      <Button type="submit">Submit</Button>
+                    </form>
+                  ) : (
+                    <h3>
+                      Please <Link to="/login">sign in</Link> to write a review
+                    </h3>
+                  )}
+                </div>
+              </div>
+            </div>
+          </WrapperReviews>
+        </>
       )}
       {/* <Navbar />
       <Announcement /> */}

@@ -125,21 +125,23 @@ const createProductReview = asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error("Product already reviewed");
     }
-    //if they didn't already add a review
-    //construct a review object
+    //if user didn't already add a review: construct a review object
     const review = {
       name: req.user.name,
+      //Number(rating): make rating number
       rating: Number(rating),
       comment,
       user: req.user._id,
     };
 
-    //
+    //push the new review: to our array of reviews
     product.reviews.push(review);
-    //
+
+    //updates numReviews field
     product.numReviews = product.reviews.length;
-    //updates the total rating
-    //adds all the rating / by the total length of reviews
+
+    //updates total rating field:
+    //add rating and / by total rating of reviews
     product.rating =
       product.reviews.reduce((acc, item) => item.rating + acc, 0) /
       product.reviews.length;

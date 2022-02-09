@@ -15,7 +15,7 @@ const Rating = ({ value, text, color }) => {
       <span style={{ color }}>
         {value >= 1 ? (
           <UisStar />
-        ) : value <= 0.5 ? (
+        ) : value >= 0.5 ? (
           <UisStarHalfAlt />
         ) : (
           <UilStar />
@@ -24,7 +24,7 @@ const Rating = ({ value, text, color }) => {
       <span style={{ color }}>
         {value >= 2 ? (
           <UisStar />
-        ) : value <= 1.5 ? (
+        ) : value >= 1.5 ? (
           <UisStarHalfAlt />
         ) : (
           <UilStar />
@@ -33,7 +33,7 @@ const Rating = ({ value, text, color }) => {
       <span style={{ color }}>
         {value >= 3 ? (
           <UisStar />
-        ) : value <= 2.5 ? (
+        ) : value >= 2.5 ? (
           <UisStarHalfAlt />
         ) : (
           <UilStar />
@@ -42,7 +42,7 @@ const Rating = ({ value, text, color }) => {
       <span style={{ color }}>
         {value >= 4 ? (
           <UisStar />
-        ) : value <= 3.5 ? (
+        ) : value >= 3.5 ? (
           <UisStarHalfAlt />
         ) : (
           <UilStar />
@@ -51,7 +51,7 @@ const Rating = ({ value, text, color }) => {
       <span style={{ color }}>
         {value >= 5 ? (
           <UisStar />
-        ) : value <= 4.5 ? (
+        ) : value >= 4.5 ? (
           <UisStarHalfAlt />
         ) : (
           <UilStar />
@@ -66,10 +66,10 @@ Rating.defaultProps = {
   color: "#ffc000",
 };
 
-Rating.protoType = {
-  value: PropTypes.number.isRequired,
-  text: PropTypes.string.isRequired,
-  color: PropTypes.string,
-};
+// Rating.protoType = {
+//   value: PropTypes.number.isRequired,
+//   text: PropTypes.string.isRequired,
+//   color: PropTypes.string,
+// };
 
 export default Rating;

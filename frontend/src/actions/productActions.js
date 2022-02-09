@@ -15,6 +15,9 @@ import {
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_SUCCESS,
   PRODUCT_UPDATE_FAIL,
+  PRODUCT_CREATE_REVIEW_REQUEST,
+  PRODUCT_CREATE_REVIEW_SUCCESS,
+  PRODUCT_CREATE_REVIEW_FAIL,
 } from "../constants/productConstants";
 
 //fetch our product, and dispatch action to our combineReducers in
@@ -187,3 +190,39 @@ export const updateProduct = (product) => async (dispatch, getState) => {
     });
   }
 };
+
+//createProductReview action
+export const createProductReview =
+  (productId, review) => async (dispatch, getState) => {
+    try {
+      //dispatch our request
+      dispatch({ type: PRODUCT_CREATE_REVIEW_REQUEST });
+
+      //get token form the state
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      //send our headers
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      //fetch /api/products/id:/reviews
+      await axios.post(`/api/products/${productId}/reviews`, review, config);
+
+      //dispatch success
+      dispatch({ type: PRODUCT_CREATE_REVIEW_SUCCESS });
+    } catch (error) {
+      //dispatch possible error
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
