@@ -23,8 +23,11 @@ const Wrapper = styled.div`
   ${mobile({ padding: "10px", flexDirection: "column" })}
 `;
 const WrapperReviews = styled.div`
-  background-color: lightblue;
+  /* background-color: lightblue; */
+  border: 2px solid black;
+  border-radius: 10px;
   padding: 30px;
+  margin-bottom: 30px;
   display: flex;
   flex-direction: column;
   /* align-items: center; */
@@ -250,29 +253,35 @@ const ProductPage = () => {
           {/* TODO: Fix styles using styled-components for reviews */}
           <WrapperReviews>
             <div>
-              <h2>Reviews</h2>
+              <h1>Reviews</h1>
             </div>
 
-            <div>
-              {product.reviews.length === 0 && (
-                <h3 style={{ padding: "5px" }} className="status-alert">
-                  No reviews
-                </h3>
-              )}
-            </div>
+            {product.reviews.length === 0 && (
+              <div
+                style={{ padding: "10px", borderRadius: "5px" }}
+                className="status-alert"
+              >
+                <h3>No reviews</h3>
+              </div>
+            )}
 
-            <div>
+            <div style={{ padding: "1rem 0" }}>
               {product.reviews.map((review) => (
                 <div
                   style={{
+                    padding: "1.25rem 0",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "flex-start",
                   }}
                   key={review._id}
                 >
-                  {console.log(review)}
-                  <strong>{review.name}</strong>
+                  <div style={{ display: "flex" }}>
+                    <strong style={{ marginRight: "10px" }}>
+                      {review.name}
+                    </strong>
+                    <p>{review.createdAt.substring(0, 10)}</p>
+                  </div>
                   <div
                   // style={{
                   //   backgroundColor: "red",
@@ -280,7 +289,6 @@ const ProductPage = () => {
                   >
                     <Rating value={review.rating} />
                   </div>
-                  <p>{review.createdAt.substring(0, 10)}</p>
                   <p>{review.comment}</p>
                 </div>
               ))}
@@ -295,7 +303,7 @@ const ProductPage = () => {
                     <form onSubmit={submitHandler}>
                       <label htmlFor="rating">Rating</label>
                       <select
-                        style={{ maxWidth: "20vh" }}
+                        style={{ maxWidth: "20vh", padding: "4px" }}
                         name="rating"
                         id="rating"
                         value={rating}
@@ -321,9 +329,19 @@ const ProductPage = () => {
                       <Button type="submit">Submit</Button>
                     </form>
                   ) : (
-                    <h3>
-                      Please <Link to="/login">sign in</Link> to write a review
-                    </h3>
+                    <p style={{ fontSize: "1rem" }}>
+                      Please{" "}
+                      <Link
+                        style={{
+                          textDecoration: "#005ad9 wavy underline",
+                          fontWeight: "600",
+                        }}
+                        to="/login"
+                      >
+                        sign in
+                      </Link>{" "}
+                      to write a review
+                    </p>
                   )}
                 </div>
               </div>
