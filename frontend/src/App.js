@@ -40,6 +40,7 @@ const App = () => {
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/cart/:id" element={<CartPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/search/:keyword" element={<HomePage />} />
           <Route path="/" element={<HomePage />} />
         </Routes>
         {/* </section> */}

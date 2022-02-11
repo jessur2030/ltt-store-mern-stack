@@ -515,6 +515,10 @@ input:checked + .slider:before {
   margin-top: 20px;
 }
 
+/* Search bar */
+
+/* Search bar ends */
+
 @media (max-width: 960px) {
   /* .text-xl {
     font-size: 30px;

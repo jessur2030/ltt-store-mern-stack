@@ -23,29 +23,31 @@ import {
 //fetch our product, and dispatch action to our combineReducers in
 //our productList reducer
 //actions creator function: listProducts
-export const listProducts = () => async (dispatch) => {
-  try {
-    //dispatch our request
-    dispatch({ type: PRODUCT_LIST_REQUEST });
+export const listProducts =
+  (keyword = "") =>
+  async (dispatch) => {
+    try {
+      //dispatch our request
+      dispatch({ type: PRODUCT_LIST_REQUEST });
 
-    //make our request
-    const { data } = await axios.get("/api/products");
+      //make our request
+      const { data } = await axios.get(`/api/products?keyword=${keyword}`);
 
-    //dispatch PRODUCT_LIST_SUCCESS
-    //send as payload: data
-    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
-  } catch (error) {
-    dispatch({
-      type: PRODUCT_LIST_FAIL,
-      //get error from our backend errors and have then in our
-      //frontend state
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+      //dispatch PRODUCT_LIST_SUCCESS
+      //send as payload: data
+      dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: PRODUCT_LIST_FAIL,
+        //get error from our backend errors and have then in our
+        //frontend state
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 //fetch our product, and dispatch action to our combineReducers in
 //our productList reducer

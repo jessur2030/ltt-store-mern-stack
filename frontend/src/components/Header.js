@@ -7,6 +7,7 @@ import "./Header.css";
 import { logout } from "../actions/userActions.js";
 import Badge from "@mui/material/Badge";
 import styled from "styled-components";
+import SearchBox from "./SearchBox.js";
 import {
   UilSearch,
   UilUserCircle,
@@ -108,12 +109,16 @@ const Header = () => {
                 <Button text=" Gift Cards" />
               </Link>
             </li>
+            <li>
+              <SearchBox />
+            </li>
           </ul>
 
           <ul className="navbar-nav-right nav-link">
             {/* <li>
               <UilSearch />
             </li> */}
+            <li></li>
 
             {userInfo ? (
               <div className="dropdown">

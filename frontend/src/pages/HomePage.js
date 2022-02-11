@@ -7,8 +7,10 @@ import Loader from "../components/Loader";
 import Message from "../components/Message.js";
 // import products from "../products";
 // import Slider from "../components/Slider";
+import { useParams } from "react-router-dom";
 
 const HomePage = () => {
+  const { keyword } = useParams();
   // const [products, setProducts] = useState([]);
   //call dispatch
   const dispatch = useDispatch();
@@ -20,8 +22,8 @@ const HomePage = () => {
 
   useEffect(() => {
     //dispatch & fire off our action
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(listProducts(keyword));
+  }, [dispatch, keyword]);
 
   return (
     <>

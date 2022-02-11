@@ -41,7 +41,7 @@ const Input = styled.input`
 
 const Button = styled.button`
   flex: 1.3;
-  align-item: center;
+  align-items: center;
   border: none;
 
   background-color: #fcf5f5;

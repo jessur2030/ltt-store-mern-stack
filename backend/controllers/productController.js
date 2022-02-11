@@ -4,12 +4,23 @@ import Product from "../models/productModel.js";
 //change app to : router
 //we dont need /api/products/ :  because
 //we are going to point it to this file
-//@desc Fetch all Products
+//@desc Fetch all Products & //if query string exits return
 //@route GET /api/products
 //@access Public
 const getProducts = asyncHandler(async (req, res) => {
-  //find({}): passing an empty object in give us everything
-  const products = await Product.find({});
+  //if query string exits
+  const keyword = req.query.keyword
+    ? //return
+      {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : //else: return all products : {}
+      {};
+  //find({}): passing an empty object in : give us everything
+  const products = await Product.find({ ...keyword });
 
   res.json(products);
 });
