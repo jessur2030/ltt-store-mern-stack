@@ -14,14 +14,15 @@ import { mobile } from "../responsive";
 
 //TODO: fix footer height
 const FooterContainer = styled.footer`
-  position: relative;
-  min-height: 100%;
-  /* padding-bottom: 5rem; */
-  margin-top: 45%;
+  /* position: relative;
+  min-height: 100%; */
+  margin-top: 10rem;
 `;
 
 const Container = styled.div`
   display: flex;
+  /* align-items: center;
+  justify-content: center; */
   ${mobile({ flexDirection: "column" })}
 `;
 const Left = styled.div`

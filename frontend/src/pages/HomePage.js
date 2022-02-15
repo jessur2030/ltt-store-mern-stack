@@ -11,6 +11,7 @@ import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 // import Paginate from "../components/Paginate.js";
 import Newsletter from "../components/Newsletter.js";
+import Footer from "../components/Footer.js";
 
 const Button = styled.button`
   padding: 10px;
@@ -127,6 +128,7 @@ const HomePage = () => {
       )}
 
       <Newsletter />
+      <Footer />
     </>
   );
 };
