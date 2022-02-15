@@ -5,7 +5,7 @@ import { mobile, desktop } from "../responsive";
 
 const Container = styled.div`
   height: 60vh;
-  background-color: #fcf5f5;
+  background-color: #f2f2f2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,6 +25,7 @@ const Description = styled.p`
 const InputContainer = styled.div`
   width: 50%;
   height: 40px;
+  border-radius: 4px;
   background-color: #fff;
   display: flex;
   justify-content: space-between;
@@ -37,20 +38,29 @@ const Input = styled.input`
   border: none;
   flex: 8;
   padding-left: 20px;
+  &:focus {
+    border-color: #005ad9;
+  }
 `;
 
 const Button = styled.button`
-  flex: 1.3;
+  display: flex;
+  justify-content: center;
   align-items: center;
+  height: 100%;
+  /* width: 100%; */
+  padding: 0 30px;
+
+  /* margin-bottom: 20px 0; */
+  /* background-color: #333; */
+  background-color: #005ad9;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 4px;
   border: none;
-
-  background-color: #fcf5f5;
   cursor: pointer;
-  transition: 60ms ease-in-out;
-
   &:hover {
-    background-color: #333;
-    color: #fff;
+    background-color: #05c;
   }
 `;
 
@@ -60,7 +70,7 @@ const Newsletter = () => {
       <Title>Newsletter</Title>
       <Description>Get timely updates from your favorite products.</Description>
       <InputContainer>
-        <Input placeholder="Email address" />
+        <Input autoComplete="off" placeholder="Email address" />
         <Button>
           <UilMessage />
         </Button>

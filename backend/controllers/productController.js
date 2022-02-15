@@ -8,6 +8,10 @@ import Product from "../models/productModel.js";
 //@route GET /api/products
 //@access Public
 const getProducts = asyncHandler(async (req, res) => {
+  const pageSize = 10;
+  //paginate: curr page
+  const page = Number(req.query.pageNumber) || 1;
+
   //if query string exits
   const keyword = req.query.keyword
     ? //return
@@ -19,10 +23,16 @@ const getProducts = asyncHandler(async (req, res) => {
       }
     : //else: return all products : {}
       {};
-  //find({}): passing an empty object in : give us everything
-  const products = await Product.find({ ...keyword });
 
-  res.json(products);
+  //get total count of products
+  const count = await Product.countDocuments({ ...keyword });
+
+  //find({}): passing an empty object in : give us everything
+  const products = await Product.find({ ...keyword })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+
+  res.json({ products, page, pages: Math.ceil(count / pageSize) });
 });
 
 //change app to : router
@@ -166,6 +176,12 @@ const createProductReview = asyncHandler(async (req, res) => {
   }
 });
 
+const getTopRaredProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({}).sort({ rating: -1 }).limit(3);
+
+  res.json(products);
+});
+
 export {
   getProducts,
   getProductById,
@@ -173,4 +189,5 @@ export {
   createProduct,
   updateProduct,
   createProductReview,
+  getTopRaredProducts,
 };

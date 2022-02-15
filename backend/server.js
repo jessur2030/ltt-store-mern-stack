@@ -32,10 +32,6 @@ if (process.env.NODE_ENV === "development") {
 //middleware: allow us to accept json data in the body
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("API is running");
-});
-
 //mount /api/products : to productRoutes
 app.use("/api/products", productRoutes);
 
@@ -53,10 +49,20 @@ app.use("/api/config/paypal", (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 );
 
-//
 const __dirname = path.resolve();
 //make uploads folder a static folder
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+
+//for production mode
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/frontend/built")));
+
+  app.get("*", (req, res )=> res.sendFile(path.resolve(__dirname, "frontend", "built", "index.html"))
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running");
+  });
+}
 
 //fall back for 404 errors : for something that is not a valid route
 app.use(notFound);

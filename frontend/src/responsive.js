@@ -15,6 +15,13 @@ export const tablet = (props) => {
     }
   `;
 };
+export const laptop = (props) => {
+  return css`
+    @media (min-width: 60em) {
+      ${props}
+    }
+  `;
+};
 
 export const desktop = (props) => {
   return css`

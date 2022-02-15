@@ -4,12 +4,12 @@ import styled from "styled-components";
 import { UilSearch } from "@iconscout/react-unicons";
 // import SearchIcon from "@mui/icons-material/Search";
 
-const Wrapper = styled.div`
-  margin: 100px auto;
-`;
+// const Wrapper = styled.div`
+//   margin: 100px auto;
+// `;
 
 const InputContainer = styled.div`
-  height: 40px;
+  /* height: 40px; */
   background-color: transparent;
   display: flex;
   align-items: center;
@@ -20,16 +20,20 @@ const InputContainer = styled.div`
 
 const Input = styled.input`
   margin: 0 0.5rem 0 0.5rem;
-  width: 100%;
+  width: 100px;
   border: none;
   outline: none;
   background: transparent;
+  transition: width 0.35s ease-in-out;
+  &:focus {
+    width: 100%;
+  }
 `;
 
 const Button = styled.button`
   /* flex: 1.3; */
   /* margin: 0 auto; */
-  padding: 10px 10px;
+  padding: 2px 2px;
   align-items: center;
   border: none;
   background-color: transparent;
@@ -53,7 +57,7 @@ const SearchBox = () => {
     }
   };
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler} style={{ padding: "0" }}>
       <InputContainer>
         <Input
           placeholder="Search Products..."
@@ -63,7 +67,10 @@ const SearchBox = () => {
           onChange={(e) => setKeyword(e.target.value)}
         />
 
-        <Button type="submit">
+        <Button
+          type="submit"
+          style={{ display: "flex", justifyContent: "center" }}
+        >
           {" "}
           <UilSearch />
         </Button>

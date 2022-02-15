@@ -17,15 +17,19 @@ import UserEditPage from "./pages/UserEditPage";
 import ProductListPage from "./pages/ProductListPage";
 import ProductEditPage from "./pages/ProductEditPage";
 import OrderListPage from "./pages/OrderListPage";
-
 const App = () => {
   return (
     <Router>
       <Header />
+      {/* <main className="container"> */}
       <main className="container">
         {/* <section className="section grid"> */}
         <Routes>
           <Route path="/admin/product/:id/edit" element={<ProductEditPage />} />
+          <Route
+            path="/admin/productlist/:pageNumber"
+            element={<ProductListPage />}
+          />
           <Route path="/admin/productlist" element={<ProductListPage />} />
           <Route path="/admin/user/:id/edit" element={<UserEditPage />} />
           <Route path="/admin/userlist" element={<UserListPage />} />
@@ -41,6 +45,11 @@ const App = () => {
           <Route path="/cart/:id" element={<CartPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/search/:keyword" element={<HomePage />} />
+          <Route
+            path="/search/:keyword/page/:pageNumber"
+            element={<HomePage />}
+          />
+          <Route path="/page/:pageNumber" element={<HomePage />} />
           <Route path="/" element={<HomePage />} />
         </Routes>
         {/* </section> */}

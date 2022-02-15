@@ -1,13 +1,14 @@
-/* .cards {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 1rem;
-} */
-
 .cards {
   margin: 0 auto;
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.cards-top-rated {
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(3, minmax(300px, 1fr));
 }
 /* media queries */

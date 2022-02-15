@@ -5,12 +5,7 @@ const Button = ({ color, text, onClick }) => {
   //     console.log(e);
   //   };
   return (
-    <button
-      onClick={onClick}
-      //  style={{ color: color }}
-
-      className="nav-btn"
-    >
+    <button onClick={onClick} style={{ color: color }} className="nav-btn">
       {text}
     </button>
   );

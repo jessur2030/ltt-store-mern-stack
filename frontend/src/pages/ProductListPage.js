@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { mobile, tablet } from "../responsive";
 import Loader from "../components/Loader.js";
@@ -79,11 +79,14 @@ const Button = styled.button`
 // e8e8e8
 
 const ProductListPage = () => {
+  const { pageNumber } = useParams() || 1;
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   //get user list from state
   const productList = useSelector((state) => state.productList);
+  // const { loading, error, products, page, pages } = productList;
   const { loading, error, products } = productList;
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -115,6 +118,7 @@ const ProductListPage = () => {
     if (successCreate) {
       navigate(`/admin/product/${createdProduct._id}/edit`);
     } else {
+      // dispatch(listProducts("",pageNumber));
       dispatch(listProducts());
     }
   }, [
@@ -124,6 +128,7 @@ const ProductListPage = () => {
     successDelete,
     successCreate,
     createdProduct,
+    // pageNumber
   ]);
 
   //delete handler function
@@ -160,41 +165,47 @@ const ProductListPage = () => {
           ) : error ? (
             <h2 className="status status-danger">{error}</h2>
           ) : (
-            <table>
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>name</th>
-                  <th>price</th>
-                  <th>category</th>
-                  <th>brand</th>
-                  <th></th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {products.map((product) => (
-                  <tr key={product._id}>
-                    <td>{product._id}</td>
-                    <td>{product.name}</td>
-                    <td>{currencyFormatter.format(product.price)}</td>
-                    <td>{product.category}</td>
-                    <td>{product.brand}</td>
-
-                    <td>
-                      <RemoveProduct onClick={() => deleteHandler(product._id)}>
-                        Remove
-                      </RemoveProduct>
-                    </td>
-                    <td>
-                      <Link to={`/admin/product/${product._id}/edit`}>
-                        <RemoveProduct>Edit</RemoveProduct>
-                      </Link>
-                    </td>
+            <>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>name</th>
+                    <th>price</th>
+                    <th>category</th>
+                    <th>brand</th>
+                    <th></th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+
+                <tbody>
+                  {products.map((product) => (
+                    <tr key={product._id}>
+                      <td>{product._id}</td>
+                      <td>{product.name}</td>
+                      <td>{currencyFormatter.format(product.price)}</td>
+                      <td>{product.category}</td>
+                      <td>{product.brand}</td>
+
+                      <td>
+                        <RemoveProduct
+                          onClick={() => deleteHandler(product._id)}
+                        >
+                          Remove
+                        </RemoveProduct>
+                      </td>
+                      <td>
+                        <Link to={`/admin/product/${product._id}/edit`}>
+                          <RemoveProduct>Edit</RemoveProduct>
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              {/* <Pagination pages={pages} page={page}/> */}
+            </>
           )}
         </TableContainer>
       </Wrapper>

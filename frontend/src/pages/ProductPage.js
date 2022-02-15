@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Rating from "../components/Rating";
+import Meta from "../components/Meta.js";
 // import products from "../products";
 import styled from "styled-components";
-import { desktop, mobile, tablet } from "../responsive";
+import { desktop, mobile, laptop } from "../responsive";
 import Loader from "../components/Loader";
 import {
   listProductsDetails,
@@ -41,13 +42,12 @@ const ImageContainer = styled.div`
 
 const Image = styled.img`
   width: 100%;
-  height: 90vh;
+  aspect-ratio: 1 / 1.25;
   object-fit: cover;
-  ${mobile({ height: "50vh" })}/* ${desktop({
-    objectFit: "contain",
-    height: "50vh",
-    background: "Red",
-  })} */
+  /* width: 100%;
+  height: 90vh;
+  object-fit: cover; */
+  ${laptop({ aspectRatio: "1 / 1" })}
 `;
 
 const InfoContainer = styled.div`
@@ -197,6 +197,7 @@ const ProductPage = () => {
         </div>
       ) : (
         <>
+          <Meta title={product.name} />
           <Wrapper>
             <ImageContainer>
               <Image src={product.image} />

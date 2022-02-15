@@ -4,11 +4,15 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { sliderItems } from "../data";
-
 import { mobile } from "../responsive";
-
+// import { listTopRatedProducts } from "../actions/productActions";
+// import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import Loader from "./Loader";
+import Message from "./Message";
 const Container = styled.div`
   width: 100%;
+  /* height: 100vh; */
   height: 100vh;
   display: flex;
   /* background-color: coral; */
@@ -56,6 +60,7 @@ const ImageContainer = styled.div`
 `;
 const Image = styled.img`
   /* height: 80%; */
+  width: 100%;
   height: 100%;
 `;
 const InfoContainer = styled.div`
@@ -89,7 +94,16 @@ const Button = styled.button`
 `;
 
 const Slider = () => {
+  // const dispatch = useDispatch();
   const [slideIndex, setSlideIndex] = useState(0);
+
+  // const productTopRated = useSelector((state) => state.productTopRated);
+  // const { loading, error, products } = productTopRated;
+
+  // useEffect(() => {
+  //   dispatch(listTopRatedProducts());
+  // }, [dispatch]);
+
   const handleClick = function (direction) {
     if (direction === "left") {
       setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
@@ -97,32 +111,36 @@ const Slider = () => {
       setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
     }
   };
-  return (
-    <Container>
-      <Arrow direction="left" onClick={() => handleClick("left")}>
-        <UilAngleLeftB />
-      </Arrow>
-      <Wrapper slideIndex={slideIndex}>
-        {sliderItems.map((item) => (
-          <Slide bg={item.bg} key={item.id}>
-            <ImageContainer>
-              <Image src={item.img} />
-            </ImageContainer>
-            {/* <InfoContainer>
+  return;
+  //  loading ?
+  //   <Loader />
+  // ) : error ? (
+  //   <Message text={error} />
+  // ) : (
+  <Container>
+    <Arrow direction="left" onClick={() => handleClick("left")}>
+      <UilAngleLeftB />
+    </Arrow>
+    <Wrapper slideIndex={slideIndex}>
+      {sliderItems.map((item) => (
+        <Slide bg={item.bg} key={item.id}>
+          <ImageContainer>
+            <Image src={item.img} alt={item.name} />
+          </ImageContainer>
+          {/* <InfoContainer>
               <Title>{item.title}</Title>
               <Description>{item.desc}</Description>
-              <Link to="/products/women">
+              <Link to="/">
                 <Button>SHOW NOW</Button>
               </Link>
             </InfoContainer> */}
-          </Slide>
-        ))}
-      </Wrapper>
-      <Arrow direction="right" onClick={() => handleClick("right")}>
-        <UilAngleRightB />
-      </Arrow>
-    </Container>
-  );
+        </Slide>
+      ))}
+    </Wrapper>
+    <Arrow direction="right" onClick={() => handleClick("right")}>
+      <UilAngleRightB />
+    </Arrow>
+  </Container>;
 };
 
 export default Slider;

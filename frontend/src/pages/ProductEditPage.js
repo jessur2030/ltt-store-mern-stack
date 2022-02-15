@@ -213,7 +213,6 @@ const ProductEditPage = () => {
                   placeholder="Count In Stock"
                   value={countInStock}
                   onChange={(e) => setCountInStock(e.target.value)}
-                  red
                 />
                 <label htmlFor="category">Category</label>
                 <input

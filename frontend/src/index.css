@@ -72,11 +72,12 @@
 }
 
 html {
+  height: 100%;
   scroll-behavior: smooth;
 }
 
 body {
-  min-height: 100vh;
+  height: 100%;
   margin: 0;
   padding: 0;
   text-rendering: optimizeSpeed;
@@ -87,6 +88,8 @@ body {
   background-color: var(--body-color);
   color: #242424;
   overflow-x: hidden;
+  /* display: flex;
+  flex-direction: column; */
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
@@ -345,23 +348,19 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.dev-mode {
-  background: linear-gradient(80deg, #d45e95, #9c6ca6, #6583c1);
-}
-
 /* site container */
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
 /* Nav bar */
 .navbar {
   position: sticky;
-  width: 100%;
+  width: 100vw;
   height: auto;
   top: 0;
-  width: 100%;
+  /* width: 100%; */
   padding: 1rem;
 
   background-color: var(--body-color);
@@ -514,6 +513,8 @@ input:checked + .slider:before {
 .box-text .btn {
   margin-top: 20px;
 }
+
+/* input */
 
 /* Search bar */
 
