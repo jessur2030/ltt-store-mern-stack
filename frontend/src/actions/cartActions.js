@@ -1,5 +1,4 @@
 import axios from "axios";
-import { async } from "regenerator-runtime";
 import {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,
