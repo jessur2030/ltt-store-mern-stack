@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import Newsletter from "../components/Newsletter";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { createOrder } from "../actions/orderActions.js";
 
@@ -69,8 +68,6 @@ const Details = styled.div`
 `;
 
 const ProductName = styled.span``;
-
-const ProductId = styled.span``;
 
 const Hr = styled.hr`
   background-color: #eeee;

@@ -1,13 +1,7 @@
 import React from "react";
 import { UilStar } from "@iconscout/react-unicons";
-import {
-  UisStar,
-  UisStarHalfAlt,
-  UisAngleRightB,
-  UisAngleLeft,
-  UisCheckCircle,
-} from "@iconscout/react-unicons-solid";
-import PropTypes from "prop-types";
+import { UisStar, UisStarHalfAlt } from "@iconscout/react-unicons-solid";
+// import PropTypes from "prop-types";
 
 const Rating = ({ value, text, color }) => {
   return (

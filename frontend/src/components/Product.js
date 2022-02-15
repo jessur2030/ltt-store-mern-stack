@@ -1,4 +1,4 @@
-import Rating from "./Rating";
+// import Rating from "./Rating";
 import "./Product.css";
 import { Link } from "react-router-dom";
 const Product = ({ product }) => {
@@ -6,7 +6,7 @@ const Product = ({ product }) => {
     <div className="container-card">
       <div className="card stacked">
         <Link to={`product/${product._id}`}>
-          <img src={product.image} className="card__img" />
+          <img src={product.image} className="card__img" alt={product.name} />
         </Link>
         <div className="card__content">
           <h2 className="card__title">{product.name}</h2>

@@ -7,8 +7,6 @@ import {
   Twitter,
   YouTube,
 } from "@mui/icons-material";
-
-import FacebookIcon from "@mui/icons-material/Facebook";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 

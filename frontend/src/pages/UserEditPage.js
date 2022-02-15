@@ -6,14 +6,6 @@ import { getUserDetails, updateUser } from "../actions/userActions";
 import { USER_UPDATE_RESET } from "../constants/userConstants";
 import styled from "styled-components";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-const LinkNavigate = styled.p`
-  margin-top: 3rem;
-  cursor: pointer;
-  color: #006aff;
-  &:hover {
-    color: #4a95ff;
-  }
-`;
 
 const Button = styled.button`
   display: flex;

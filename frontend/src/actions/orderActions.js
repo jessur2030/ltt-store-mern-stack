@@ -238,7 +238,7 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
   } catch (error) {
     //dispatch possible error
     dispatch({
-      type: ORDER_DETAILS_FAIL,
+      type: ORDER_DELIVER_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

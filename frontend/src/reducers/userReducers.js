@@ -1,4 +1,3 @@
-import { ORDER_DETAILS_REQUEST } from "../constants/orderContants";
 import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,

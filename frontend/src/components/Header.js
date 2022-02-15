@@ -6,58 +6,27 @@ import logo from "./logo-ltt.png";
 import "./Header.css";
 import { logout } from "../actions/userActions.js";
 import Badge from "@mui/material/Badge";
-import styled from "styled-components";
 import SearchBox from "./SearchBox.js";
 import {
-  UilSearch,
-  UilUserCircle,
+  // UilSearch,
+  // UilUserCircle,
   UilEllipsisV,
   UilTimes,
   UilShoppingCart,
-  UilMoon,
-  UilSun,
-  UilEdit,
+  // UilMoon,
+  // UilSun,
+  // UilEdit,
 } from "@iconscout/react-unicons";
 
-import {
-  ShoppingBagOutlined,
-  // MoreVertOutlined,
-  // Close,
-  // AccountCircle,
-  // Search,
-} from "@mui/icons-material";
-//MoreVertOutlined
-// ShoppingBagOutlinedIcon
-// ShoppingCartOutlined
-// StarHalf
-// Star
-// StarOutline
-// ChevronRightOutlined
-//ChevronLeftOutlined
-//BrightnessMediumOutlined
-//Brightness5Outlined
+// import {
+//   ShoppingBagOutlined,
+
+// } from "@mui/icons-material";
+
 const brand = {
   hight: "30px",
   width: "30px",
 };
-
-// const Button = styled.button`
-//   width: 100%;
-//   padding: 10px;
-//   margin-bottom: 20px 0;
-//   /* background-color: #333; */
-//   background-color: #005ad9;
-//   color: #fff;
-//   font-weight: 600;
-//   border: none;
-//   border-radius: 5px;
-
-//   cursor: pointer;
-//   &:hover {
-//     background-color: #05c;
-//   }
-// `;
-// e8e8e8
 
 const Header = () => {
   const navigate = useNavigate();

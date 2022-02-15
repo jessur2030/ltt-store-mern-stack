@@ -9,7 +9,7 @@ const LoginPage = () => {
   //set focus on the first input: when to the component loads
   const userRef = useRef();
   //set focus on the errors: specially when Accessability
-  const errRef = useRef();
+  // const errRef = useRef();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // //error messages state
@@ -42,7 +42,7 @@ const LoginPage = () => {
   //when to the component loads
   useEffect(() => {
     userRef.current.focus();
-  }, [useRef]);
+  }, []);
   // //empty out any err msg that we any have if the user,
   // //changes the user state or the password state
   // //essentially if the user changes anyone of our inputs, we will make our err disappear

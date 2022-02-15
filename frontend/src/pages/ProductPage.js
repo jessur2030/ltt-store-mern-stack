@@ -296,6 +296,7 @@ const ProductPage = () => {
 
               <div style={{ marginTop: "30px" }}>
                 <h2>Write a review</h2>
+                {loadingCreateReview && <Loader />}
                 {errorCreateReview && (
                   <h3 className="errmsg">{errorCreateReview}</h3>
                 )}

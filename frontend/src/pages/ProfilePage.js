@@ -54,40 +54,12 @@ const Product = styled.div`
   ${mobile({ flexDirection: "column", overflowX: "auto" })}
 `;
 
-const ProductDetail = styled.div`
-  flex: 2;
-  display: flex;
-`;
-
-const Details = styled.div`
-  padding: 20px;
-  display: flex;
-  /* flex-direction: column; */
-  flex-direction: row;
-  justify-content: space-around;
-  gap: 1rem;
-  ${mobile({
-    flexDirection: "column",
-  })}
-`;
-
 const RemoveProduct = styled.p`
   cursor: pointer;
   color: #006aff;
   &:hover {
     color: #4a95ff;
   }
-`;
-
-const Hr = styled.hr`
-  background-color: #e0e0e0;
-  border: none;
-  height: 1px;
-`;
-
-const OrderDetails = styled.span`
-  font-size: 1rem;
-  font-weight: 400;
 `;
 
 const Summary = styled.div`

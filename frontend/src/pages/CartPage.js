@@ -3,11 +3,7 @@ import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { mobile } from "../responsive";
-
-//addToCart action
 import { addToCart, removeCartItem } from "../actions/cartActions";
-
-import Newsletter from "../components/Newsletter";
 import { currencyFormatter } from "../utils/utils.js";
 
 const Container = styled.div``;

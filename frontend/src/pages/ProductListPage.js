@@ -79,7 +79,7 @@ const Button = styled.button`
 // e8e8e8
 
 const ProductListPage = () => {
-  const { pageNumber } = useParams() || 1;
+  // const { pageNumber } = useParams() || 1;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

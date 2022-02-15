@@ -5,9 +5,9 @@ import { listOrders } from "../actions/orderActions.js";
 import styled from "styled-components";
 import { mobile, tablet } from "../responsive";
 import Loader from "../components/Loader.js";
-import CheckIcon from "@mui/icons-material/Check";
+// import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
-import Message from "../components/Message.js";
+// import Message from "../components/Message.js";
 
 const Container = styled.div``;
 
@@ -48,27 +48,25 @@ const RemoveProduct = styled.p`
   }
 `;
 
-const Button = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* width: 100%; */
-  padding: 10px 15px 10px 8px;
-  /* margin-bottom: 20px 0; */
-  /* background-color: #333; */
-  background-color: #005ad9;
-  color: #fff;
-  font-weight: 600;
-  border: none;
-  border-radius: 5px;
+// const Button = styled.button`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
 
-  cursor: pointer;
-  &:hover {
-    background-color: #05c;
-  }
-  ${mobile({ fontSize: ".75rem" })}
-`;
-// e8e8e8
+//   padding: 10px 15px 10px 8px;
+
+//   background-color: #005ad9;
+//   color: #fff;
+//   font-weight: 600;
+//   border: none;
+//   border-radius: 5px;
+
+//   cursor: pointer;
+//   &:hover {
+//     background-color: #05c;
+//   }
+//   ${mobile({ fontSize: ".75rem" })}
+// `;
 
 const OrderListPage = () => {
   const dispatch = useDispatch();

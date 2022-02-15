@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Meta from "../components/Meta.js";
 import Product from "../components/Product";
 import "./HomePage.css";
@@ -54,7 +54,8 @@ const HomePage = () => {
   //useSelector
   const productList = useSelector((state) => state.productList);
   //grab what we need productList
-  const { loading, error, products, page, pages } = productList;
+  // const { loading, error, products, page, pages } = productList;
+  const { loading, error, products } = productList;
 
   useEffect(() => {
     //dispatch & fire off our action
