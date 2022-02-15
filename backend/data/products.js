@@ -2,7 +2,7 @@
 const products = [
   {
     name: "PROCESSOR T-SHIRT",
-    image: "/images/ltttstore_SCBananaPlushies_TransparencyFile_1200x.png",
+    image: "/images/Lttstore_ThreadripperCPUPillow_TransparencyFile_1000x.png",
 
     description:
       "THIS HOODIE IS DESIGNED TO MAINTAIN MAXIMUM COMFORT WHILE LOUNGING AROUND THE HOUSE OR GAMING. WITH A SMOOTH FINISH ON THE COTTON/POLY/SPANDEX BLEND, BOTH SIDES OF THE FABRIC SHOULD FEEL SOFT AND COOL.",
@@ -14,7 +14,7 @@ const products = [
     numReviews: 12,
   },
   {
-    name: "HARD DRIVE SHIRT",
+    name: "CPU Pillows",
     image: "/images/Lttstore_CPUPillows_TrasparentFiles_1200x.png",
     description:
       "THE ULTIMATE IN COMFORT, OUR EXPENSIVE EDITION CPU PILLOW IS FILLED WITH 100% ALPACA WOOL, SPARING NO EXPENSE FOR THAT COMFORT FACTOR.",
@@ -39,7 +39,7 @@ const products = [
   },
   {
     name: "PLAID FLANNEL",
-    image: "/images/ltttstore_SCBananaPlushies_TransparencyFile_1200x.png",
+    image: "/images/lttstore_Swacket_TransparencyFile_1000x.png",
     description:
       "THIS 100% COTTON BUFFALO CHECK BUTTON-UP FEATURES 2 SIDE POCKETS, 2 CHEST POCKETS, AN LTT-EMBOSSED CHEST PATCH, AND ULTIMATE COMFORT.",
     brand: "LTT",
@@ -50,8 +50,8 @@ const products = [
     numReviews: 12,
   },
   {
-    name: "REFLECTIVE CPU T-SHIRT",
-    image: "/images/lttstore_GradientHDDShirt_TransparencyFile_1000x.png",
+    name: "ABC Book Plushies",
+    image: "/images/Lttstore_ABCBookPlushies_TransparencyFile_1000x.png",
     description:
       "THIS HOODIE IS DESIGNED TO MAINTAIN MAXIMUM COMFORT WHILE LOUNGING AROUND THE HOUSE OR GAMING. WITH A SMOOTH FINISH ON THE COTTON/POLY/SPANDEX BLEND, BOTH SIDES OF THE FABRIC SHOULD FEEL SOFT AND COOL.",
     brand: "LTT",

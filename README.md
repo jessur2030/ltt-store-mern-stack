@@ -9,6 +9,10 @@ E-commerce store built using the MERN stack (MongoDB, Express.js, React.js, Node
 
 <!-- ### [Live Site](https://) -->
 
+<!-- site image -->
+
+![lttStore](https://ibb.co/Msv5nCs)
+
 ## Available Scripts
 
 In the project directory, you can run:
