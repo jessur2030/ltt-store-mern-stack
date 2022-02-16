@@ -112,7 +112,14 @@ const RegisterPage = () => {
           </form>
           <p>
             Have an account?{" "}
-            <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
+            <Link
+              style={{
+                color: "005ad9",
+                textDecoration: "#005ad9 wavy underline",
+                fontWeight: "600",
+              }}
+              to={redirect ? `/login?redirect=${redirect}` : "/login"}
+            >
               Login
             </Link>
           </p>

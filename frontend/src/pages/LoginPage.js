@@ -91,6 +91,11 @@ const LoginPage = () => {
           <p>
             Don't have an account?{" "}
             <Link
+              style={{
+                color: "005ad9",
+                textDecoration: "#005ad9 wavy underline",
+                fontWeight: "600",
+              }}
               to={redirect ? `/register?redirect=${redirect}` : "/register"}
             >
               Sign up
