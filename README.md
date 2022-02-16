@@ -22,7 +22,12 @@
 
 <!-- ![lttStore](https://i.ibb.co/FKrq6DK/ltt-store-jesus-R.jpg) -->
 
+### Desktop
+
 ![lttStore](https://i.ibb.co/44RCVV5/Web-capture-16-2-2022-114326-lttstore-jesusr-herokuapp-com.jpg)
+
+### Mobile
+
 ![lttStore](https://i.ibb.co/vDsrnz4/Web-capture-16-2-2022-114449-lttstore-jesusr-herokuapp-com.jpg)
 
 ## Available Scripts
