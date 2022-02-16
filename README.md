@@ -1,9 +1,16 @@
-# LTT Store
+# Linus tech tips Store
 
-E-commerce store built using the MERN stack (MongoDB, Express.js, React.js, Node.js)
-• Fully functioning e-commerce store with state management and responsive layout
-• Created back-end server with Express.js and implemented a RESTful API
-• Utilized React.js to implement functional reusable react components
+**Full Stack custom E-commerce Web Application with Admin Dashboard built using the MERN stack (MongoDB, Express.js, React.js, Node.js)**
+
+- Developed a fully functioning e-commerce store with redux state management and responsive layout
+
+- Created back-end server with Express.js and implemented a RESTful API
+
+- CRUD admin functionalities to manage users, products, and orders
+
+- Developed database with MongoDB (Mongoose)
+
+- Implemented payment method using PayPal
 
 <!-- • Implemented payment method using paypal -->
 
@@ -11,7 +18,9 @@ E-commerce store built using the MERN stack (MongoDB, Express.js, React.js, Node
 
 <!-- site image -->
 
-<!-- ![lttStore](https://ibb.co/Msv5nCs) -->
+[lttStore](https://lttstore-jesusr.herokuapp.com/)
+
+![lttStore](https://ibb.co/Msv5nCs)
 
 ## Available Scripts
 
