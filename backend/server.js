@@ -53,7 +53,6 @@ const __dirname = path.resolve();
 //make uploads folder a static folder
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
-//for production mode
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/frontend/build")));
 
@@ -62,7 +61,7 @@ if (process.env.NODE_ENV === "production") {
   );
 } else {
   app.get("/", (req, res) => {
-    res.send("API is running");
+    res.send("API is running....");
   });
 }
 

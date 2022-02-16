@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import { async } from "regenerator-runtime";
+
 //create user Schema: userSchema
 
 const userSchema = mongoose.Schema(
