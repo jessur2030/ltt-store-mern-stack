@@ -16,11 +16,14 @@
 
 <!-- ### [Live Site](https://) -->
 
+## [Live Site](https://lttstore-jesusr.herokuapp.com/)
+
 <!-- site image -->
 
-[lttStore](https://lttstore-jesusr.herokuapp.com/)
+<!-- ![lttStore](https://i.ibb.co/FKrq6DK/ltt-store-jesus-R.jpg) -->
 
-![lttStore](https://ibb.co/Msv5nCs)
+![lttStore](https://i.ibb.co/44RCVV5/Web-capture-16-2-2022-114326-lttstore-jesusr-herokuapp-com.jpg)
+![lttStore](https://i.ibb.co/vDsrnz4/Web-capture-16-2-2022-114449-lttstore-jesusr-herokuapp-com.jpg)
 
 ## Available Scripts
 
