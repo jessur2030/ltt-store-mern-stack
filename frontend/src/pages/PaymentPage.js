@@ -50,6 +50,7 @@ const PaymentPage = () => {
             >
               <input
                 type="radio"
+                checked
                 id="PayPal"
                 name="paymentMethod"
                 value="PayPal"

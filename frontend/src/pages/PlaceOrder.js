@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { createOrder } from "../actions/orderActions.js";
+import { CART_RESET } from "../constants/cartConstants";
+import { removeAllCartItems } from "../actions/cartActions.js";
 
 const Container = styled.div``;
 
@@ -173,6 +175,8 @@ const PlaceOrder = () => {
   useEffect(() => {
     if (success) {
       navigate(`/order/${order._id}`);
+      dispatch({ type: CART_RESET });
+      dispatch(removeAllCartItems());
     }
     //eslint-disable-next-line
   }, [navigate, success]);

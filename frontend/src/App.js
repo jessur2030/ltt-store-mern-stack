@@ -21,7 +21,7 @@ const App = () => {
     <Router>
       <Header />
       {/* <main className="container"> */}
-      <main className="container">
+      <main className="container main">
         {/* <section className="section grid"> */}
         <Routes>
           <Route path="/admin/product/:id/edit" element={<ProductEditPage />} />

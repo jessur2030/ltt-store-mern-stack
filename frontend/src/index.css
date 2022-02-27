@@ -353,6 +353,14 @@ input:checked + .slider:before {
   max-width: 1400px;
   margin: 0 auto;
 }
+.grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.main {
+  overflow: hidden;
+}
 
 /* Nav bar */
 .navbar {

@@ -160,9 +160,9 @@ const OrderPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id: orderId } = useParams();
+
   //paypal sdk state
   const [sdkReady, setSdkReady] = useState(false);
-
   //locale date options
   // const options = {
   //   weekday: "long",
