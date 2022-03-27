@@ -11,7 +11,7 @@ import {
   listProductsDetails,
   createProductReview,
 } from "../actions/productActions";
-import { currencyFormatter } from "../utils/utils.js";
+import { currencyFormatter, options } from "../utils/utils.js";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants.js";
 
 const Container = styled.div``;
@@ -281,7 +281,12 @@ const ProductPage = () => {
                     <strong style={{ marginRight: "10px" }}>
                       {review.name}
                     </strong>
-                    <p>{review.createdAt.substring(0, 10)}</p>
+                    <p>
+                      {new Date(review.createdAt).toLocaleString(
+                        "en-US",
+                        options
+                      )}
+                    </p>
                   </div>
                   <div
                   // style={{

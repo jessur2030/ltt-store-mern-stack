@@ -7,7 +7,7 @@ import { listMyOrders } from "../actions/orderActions";
 import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
 import styled from "styled-components";
 import { mobile, tablet } from "../responsive";
-import { currencyFormatter } from "../utils/utils.js";
+import { currencyFormatter, options } from "../utils/utils.js";
 
 const Container = styled.div``;
 
@@ -188,7 +188,12 @@ const ProfilePage = () => {
                       {orders.map((order) => (
                         <tr key={order._id}>
                           <td>{order._id}</td>
-                          <td> {order.createdAt.substring(0, 10)}</td>
+                          <td>
+                            {new Date(order.createdAt).toLocaleString(
+                              "en-US",
+                              options
+                            )}
+                          </td>
                           <td className="amount">
                             {currencyFormatter.format(order.totalPrice)}
                           </td>
@@ -196,7 +201,10 @@ const ProfilePage = () => {
                           <td>
                             {order.isPaid ? (
                               <p className="status status-success">
-                                {order.paidAt.substring(0, 10)}
+                                {new Date(order.paidAt).toLocaleString(
+                                  "en-US",
+                                  options
+                                )}
                               </p>
                             ) : (
                               <p className="status status-danger">Not Paid</p>
@@ -206,7 +214,10 @@ const ProfilePage = () => {
                           <td>
                             {" "}
                             {order.isDelivered ? (
-                              order.deliveredAt.substring(0, 10)
+                              new Date(order.deliveredAt).toLocaleString(
+                                "en-US",
+                                options
+                              )
                             ) : (
                               <p className="status status-danger">
                                 Not delivered

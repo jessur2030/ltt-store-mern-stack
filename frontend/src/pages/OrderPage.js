@@ -11,7 +11,7 @@ import {
   payOrder,
   deliverOrder,
 } from "../actions/orderActions.js";
-import { currencyFormatter } from "../utils/utils";
+import { currencyFormatter, options } from "../utils/utils";
 import {
   ORDER_PAY_RESET,
   ORDER_DELIVER_RESET,
@@ -280,7 +280,8 @@ const OrderPage = () => {
           </Top>
           {order.isDelivered ? (
             <h2 className="success" style={{ padding: "5px" }}>
-              Order Delivered on {order.deliveredAt.substring(0, 10)}
+              Order Delivered on
+              {new Date(order.deliveredAt).toLocaleString("en-US", options)}
             </h2>
           ) : order.isPaid ? (
             <>
@@ -347,8 +348,7 @@ const OrderPage = () => {
                     <strong> Paid on</strong>
                   </SummaryItemText>
                   <SummaryItemPrice>
-                    {" "}
-                    {order.paidAt.substring(0, 10)}
+                    {new Date(order.paidAt).toLocaleString("en-US", options)}
                   </SummaryItemPrice>
                 </SummaryItem>
               ) : (

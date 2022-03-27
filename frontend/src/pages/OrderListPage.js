@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { listOrders } from "../actions/orderActions.js";
 import styled from "styled-components";
-import { mobile, tablet } from "../responsive";
+import { mobile } from "../responsive";
+import { options } from "../utils/utils";
+
 import Loader from "../components/Loader.js";
 // import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -93,18 +95,28 @@ const OrderListPage = () => {
                   <tr key={order._id}>
                     <td>{order._id}</td>
                     <td>{order.user && order.user.name}</td>
-                    <td>{order.createdAt.substring(0, 10)}</td>
+
+                    {/* <td>{order.createdAt.substring(0, 10)}</td> */}
+                    <td>
+                      {new Date(order.createdAt).toLocaleString(
+                        "en-US",
+                        options
+                      )}
+                    </td>
                     <td>${order.totalPrice}</td>
                     <td>
                       {order.isPaid ? (
-                        order.paidAt.substring(0, 10)
+                        new Date(order.paidAt).toLocaleString("en-US", options)
                       ) : (
                         <ClearIcon style={{ color: "firebrick" }} />
                       )}
                     </td>
                     <td>
                       {order.isDelivered ? (
-                        order.deliveredAt.substring(0, 10)
+                        new Date(order.deliveredAt).toLocaleString(
+                          "en-US",
+                          options
+                        )
                       ) : (
                         <ClearIcon style={{ color: "firebrick" }} />
                       )}

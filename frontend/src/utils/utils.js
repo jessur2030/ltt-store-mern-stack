@@ -3,3 +3,10 @@ export const currencyFormatter = new Intl.NumberFormat(undefined, {
   style: "currency",
   //   minimumFractionDigits: 0,
 });
+
+//
+export const options = {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+};
