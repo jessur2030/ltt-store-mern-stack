@@ -8,7 +8,7 @@ import Product from "../models/productModel.js";
 //@route GET /api/products
 //@access Public
 const getProducts = asyncHandler(async (req, res) => {
-  const pageSize = 10;
+  const pageSize = 20;
   //paginate: curr page
   const page = Number(req.query.pageNumber) || 1;
 

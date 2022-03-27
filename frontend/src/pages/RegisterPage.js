@@ -25,7 +25,6 @@ const RegisterPage = () => {
   const { search } = useLocation();
 
   const redirect = useLocation().search ? search.split("=")[1] : "/";
-  console.log(redirect);
   //set focus on input field
   useEffect(() => {
     userRef.current.focus();

@@ -18,6 +18,21 @@
 
 ## Usage
 
+### Admin user login
+
+- Email: admin@gmail.com
+- Pass: 123456
+
+### Test user login
+
+- Email: merry@gmail.com
+- Pass: 123456
+
+### Paypal san box login
+
+- Email: sb-khjni12454510@personal.example.com
+- Pass: g59]DF&%
+
 ### Desktop
 
 ![lttStore](https://i.ibb.co/44RCVV5/Web-capture-16-2-2022-114326-lttstore-jesusr-herokuapp-com.jpg)
