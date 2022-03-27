@@ -28,7 +28,7 @@
 - Email: merry@gmail.com
 - Pass: 123456
 
-### Paypal san box login
+### Paypal sandbox login
 
 - Email: sb-khjni12454510@personal.example.com
 - Pass: g59]DF&%
