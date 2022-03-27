@@ -97,19 +97,19 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
   }
 };
 
-//pay order action
+//pass in paymentResult: from PayPal
 export const payOrder =
   (orderId, paymentResult) => async (dispatch, getState) => {
     try {
       //dispatch our request
       dispatch({ type: ORDER_PAY_REQUEST });
 
-      //GET userIfo from the state
+      //get user token
       const {
         userLogin: { userInfo },
       } = getState();
 
-      //send our headers
+      //user header token
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -117,15 +117,18 @@ export const payOrder =
         },
       };
 
-      //fetch our request to update our pay order
+      //fetch our data
       const { data } = await axios.put(
         `/api/orders/${orderId}/pay`,
         paymentResult,
         config
       );
 
-      //dispatch our data from our fetch request
+      //dispatch our updated pay data
       dispatch({ type: ORDER_PAY_SUCCESS, payload: data });
+
+      //reset pay
+      // dispatch({type: ORDER_PAY_RESET})
     } catch (error) {
       //dispatch possible error
       dispatch({

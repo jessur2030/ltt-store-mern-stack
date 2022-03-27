@@ -163,20 +163,6 @@ const OrderPage = () => {
 
   //paypal sdk state
   const [sdkReady, setSdkReady] = useState(false);
-  //locale date options
-  // const options = {
-  //   weekday: "long",
-  //   year: "numeric",
-  //   month: "long",
-  //   day: "numeric",
-  // };
-
-  // const options = {
-  //   weekday: "short",
-  //   year: "numeric",
-  //   month: "2-digit",
-  //   day: "numeric",
-  // };
 
   //state form orderDetails
   const orderDetails = useSelector((state) => state.orderDetails);
@@ -217,8 +203,8 @@ const OrderPage = () => {
       const script = document.createElement("script");
       script.type = "text/javascript";
       //set our script to async
-      script.async = true;
       script.src = ` https://www.paypal.com/sdk/js?client-id=${clientId}`;
+      script.async = true;
 
       //once our loads
       script.onload = () => {

@@ -2,9 +2,9 @@ import path from "path";
 import express from "express";
 import dotenv from "dotenv";
 import morgan from "morgan";
-import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import connectDB from "./config/db.js";
-//brings productRoutes.js
+import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
+import { protect } from "./middleware/authMiddleware.js";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
@@ -44,11 +44,10 @@ app.use("/api/orders", orderRoutes);
 //mount /api/upload
 app.use("/api/upload", uploadRoutes);
 
-//config route for getting our PAYPAL_CLIENT_ID
-app.use("/api/config/paypal", (req, res) =>
+//Config route for paypal
+app.get("/api/config/paypal", (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 );
-
 const __dirname = path.resolve();
 //make uploads folder a static folder
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));

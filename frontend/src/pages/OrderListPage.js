@@ -30,14 +30,8 @@ const Title = styled.p`
 const TableContainer = styled.div`
   display: flex;
   overflow-x: auto;
-  /* background-color: coral; */
-  /* justify-content: space-between; */
-  margin-top: 20px;
-  /* margin-right: 20px; */
-  /* box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.15); */
 
-  /* ${tablet({ flexDirection: "column" })}
-  ${mobile({ flexDirection: "column" })} */
+  margin-top: 20px;
 `;
 
 const RemoveProduct = styled.p`
@@ -47,26 +41,6 @@ const RemoveProduct = styled.p`
     color: #4a95ff;
   }
 `;
-
-// const Button = styled.button`
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-
-//   padding: 10px 15px 10px 8px;
-
-//   background-color: #005ad9;
-//   color: #fff;
-//   font-weight: 600;
-//   border: none;
-//   border-radius: 5px;
-
-//   cursor: pointer;
-//   &:hover {
-//     background-color: #05c;
-//   }
-//   ${mobile({ fontSize: ".75rem" })}
-// `;
 
 const OrderListPage = () => {
   const dispatch = useDispatch();
