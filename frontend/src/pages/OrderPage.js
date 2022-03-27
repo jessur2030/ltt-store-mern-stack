@@ -195,55 +195,47 @@ const OrderPage = () => {
       navigate("/");
     }
 
-    //addPayPalScript
+    //paypal script
     const addPayPalScript = async () => {
-      //get clientId form our backend endpoint
+      //fetch our client id from our backend endpoint /api/config/paypal
       const { data: clientId } = await axios.get(`/api/config/paypal`);
-      //create new script el
+
+      //create script
       const script = document.createElement("script");
       script.type = "text/javascript";
-      //set our script to async
-      script.src = ` https://www.paypal.com/sdk/js?client-id=${clientId}`;
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
       script.async = true;
-
-      //once our loads
+      //when once this loads
+      //dynamically add our paypal script
       script.onload = () => {
         //setSdkReady to true
         setSdkReady(true);
       };
 
-      //adds the script to the body
-      //dynamically adds our paypal script into the body
+      //add paypal script into the body dynamically
       document.body.appendChild(script);
     };
-    //check for the order and also make sure that the order ID matches the ID in the URL
-    // if (!order || order._id !== id) {
+
+    //if the order its'n there or we have a success pay: dispatch
     if (!order || successPay || successDeliver) {
+      //PREVENT never ending loop after paying
       dispatch({ type: ORDER_PAY_RESET });
       dispatch({ type: ORDER_DELIVER_RESET });
-
-      //dispatch order details by our url id
+      //dispatch our action
       dispatch(getOrderDetails(orderId));
     }
-    //if the order is not paid
+    //check is order is not paid
     else if (!order.isPaid) {
-      //and if paypal is not on the page window
+      //and if paypal is not in our page body
       if (!window.paypal) {
-        //call the paypal script
+        //call paypal script
         addPayPalScript();
       } else {
         setSdkReady(true);
       }
     }
-  }, [
-    userInfo,
-    navigate,
-    dispatch,
-    order,
-    orderId,
-    successPay,
-    successDeliver,
-  ]);
+    //eslint-disable-next-line
+  }, [dispatch, orderId, successPay, order, successDeliver]);
 
   //successPaymentHandler function
   const successPaymentHandler = (paymentResult) => {
