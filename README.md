@@ -12,11 +12,14 @@
 
 - Implemented payment method using PayPal
 
-## [Live Site](https://lttstore-jesusr.herokuapp.com/)
+## [Live Site](https://ltt-store-app.onrender.com/)
 
-<!-- site image -->
+## Usage
 
-<!-- ![lttStore](https://i.ibb.co/FKrq6DK/ltt-store-jesus-R.jpg) -->
+### Test user login
+
+- Email: admin@gmail.com
+- Pass: 123456
 
 ![lttStore](https://i.ibb.co/44RCVV5/Web-capture-16-2-2022-114326-lttstore-jesusr-herokuapp-com.jpg)
 ![lttStore](https://i.ibb.co/vDsrnz4/Web-capture-16-2-2022-114449-lttstore-jesusr-herokuapp-com.jpg)
